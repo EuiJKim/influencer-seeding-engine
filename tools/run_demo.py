@@ -43,6 +43,13 @@ def main():
     say("2. 증명과 루프 — 시딩→매출→인과 장부→점수 갱신 ([SYNTHETIC] 합성 매출)")
     run(["tools/simulate_loop.py"])
 
+    say("3. 대시보드 — 심사용 한 장 (dashboard.html 생성 + 브라우저 오픈)")
+    run(["tools/build_dashboard.py"])
+    import os
+    import webbrowser
+    webbrowser.open("file://" + os.path.abspath("dashboard.html"))
+    print("브라우저에서 dashboard.html 열림 (오프라인 동작, CDN 없음)")
+
     say("요약 — 대표의 AX 정의에 대한 응답")
     print("""\
   ① 판단을 시스템이:   규칙 R1~R4가 감이 아닌 근거로 5명을 선정 (출처 있는 룰팩)
