@@ -1,0 +1,43 @@
+{
+  "version": "rehearsal-2026.07.16",
+  "note": "시딩 후보 점수화 규칙. 예선 린터와 같은 원칙: 모든 규칙에 근거·출처, 순수 함수(같은 입력=같은 점수), 확정/추정 분리. 가중치는 리허설 초안 — 당일 요구사항·제공 데이터에 맞춰 재조정.",
+  "rules": {
+    "R1-ENGAGEMENT": {
+      "weight": 40,
+      "what": "반응률 = (좋아요+댓글)/조회수. 팔로워 수보다 실제 반응이 전환을 예측",
+      "bands": [[0.05, 40], [0.03, 30], [0.015, 20], [0.005, 10], [0.0, 0]],
+      "min_views": 500,
+      "min_views_note": "조회수 500 미만은 반응률 통계가 무의미(리허설에서 조회수 2회·반응률 50% 왜곡 사례 실제 발생) → R1=0 + 표본부족 사유",
+      "rationale": "마이크로 인플루언서의 높은 반응률이 전환 성과로 이어진 국내 사례(리파 캠페인 3개월 일매출 2배)",
+      "source": "https://spray.io/ko/blog/influencer-marketing-example-kr"
+    },
+    "R2-SCALE-FIT": {
+      "weight": 25,
+      "what": "구독자 규모 적정성. 시딩(무상 제공)은 메가보다 마이크로가 회신율·비용효율 우위",
+      "bands_subscribers": [[10000, 100000, 25], [3000, 10000, 18], [100000, 500000, 15], [0, 3000, 8], [500000, null, 10]],
+      "rationale": "숏폼 시대 마이크로 인플루언서 활용이 성공사례 다수 + 뷰티 인지 채널 조사",
+      "source": "https://pickply.com/blog/consumer-journey-data-report-beauty-industry-2026-1Q"
+    },
+    "R3-AUTHENTICITY": {
+      "weight": 20,
+      "what": "콘텐츠 진정성 신호. 내돈내산 이력 채널은 시딩 콘텐츠도 신뢰 전이",
+      "markers_organic": ["내돈내산", "노협찬", "솔직", "리얼후기", "직접"],
+      "markers_paid": ["광고", "협찬", "AD", "유료"],
+      "score_organic": 20, "score_neutral": 12, "score_paid": 8,
+      "rationale": "협찬 표기 콘텐츠 대비 내돈내산 후기의 신뢰 우위(블로그 체험단 실무 분석). 유료 협찬도 표시광고법 준수 신호라 0점 아님",
+      "source": "https://home.ampm.co.kr/ae-woody55/insight/11581"
+    },
+    "R4-RELEVANCE": {
+      "weight": 15,
+      "what": "뷰티 카테고리 적합도. 카테고리 밖 채널은 도달해도 전환 낮음",
+      "markers": ["뷰티", "스킨케어", "화장품", "리뷰", "후기", "추천", "크림", "세럼", "마스크", "선크림", "패치", "괄사"],
+      "score_hit": 15, "score_miss": 5,
+      "rationale": "스킨케어 인지 채널에서 뷰티 콘텐츠 경유 비중(유튜브 31.4%+인스타 28.7%)",
+      "source": "https://pickply.com/blog/consumer-journey-data-report-beauty-industry-2026-1Q"
+    }
+  },
+  "data_quality": {
+    "estimated_if_missing": ["subscribers"],
+    "note": "구독자 미확인 채널은 R2를 중앙값 처리하지 않고 '추정' 플래그 + 최저밴드로 보수 처리"
+  }
+}
