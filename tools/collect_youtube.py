@@ -40,15 +40,19 @@ def collect(queries, brand=None):
 
 
 def main():
-    queries = sys.argv[1:] or ["메디테라피"]
+    args = sys.argv[1:]
+    out_path = OUT
+    if args and args[0].startswith("--out="):
+        out_path = args.pop(0)[len("--out="):]
+    queries = args or ["메디테라피"]
     rows = collect(queries)
-    with open(OUT, "w", newline="", encoding="utf-8-sig") as fh:
+    with open(out_path, "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)
     hits = [r for r in rows if r["brand_in_title"]]
     out = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    out.write(f"수집 {len(rows)}건 -> {OUT}\n")
+    out.write(f"수집 {len(rows)}건 -> {out_path}\n")
     out.write(f"제목에 브랜드 직접 언급: {len(hits)}건\n")
     for r in sorted(hits, key=lambda r: -int(r["views"] or 0))[:10]:
         out.write(f"  {r['views']:>9} views | {r['channel']} | {r['title'][:60]}\n")

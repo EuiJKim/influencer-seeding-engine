@@ -226,110 +226,111 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
   <div class="layer core"><span class="ltag">물리 법칙 ← 오늘 구현</span><b>소비자 상태 세계</b> — 모름→인지→관심→신뢰→구매→전파의 상태 전이 모델. 시뮬레이터와 동일물: 전이 확률이 곧 파라미터, 실측이 곧 보정</div>
 </div>
 
-<h2>Decision<span class="big">① 판단 — 누구에게 보낼 것인가 <span style="color:var(--faint);font-weight:400;font-size:14px">(실제 유튜브 공개 데이터 15개 채널)</span></span></h2>
+<h2>Decision<span class="big">① 판단 — 누구에게 보낼 것인가 <span style="color:var(--faint);font-weight:400;font-size:14px">(카테고리 검색 기반 후보 풀 15개 채널, 실제 유튜브 공개 데이터)</span></span></h2>
 <div class="legend">규칙: <i style="background:#1E41C0"></i>R1 반응률(40) <i style="background:#0d9668"></i>R2 규모적합(25) <i style="background:#b45309"></i>R3 진정성(20) <i style="background:#94a3b8"></i>R4 카테고리(15) — 막대에 마우스를 올리면 근거</div>
+<div class="hint">가중치 근거: 순서(반응률&gt;규모&gt;진정성&gt;카테고리)는 공개 사례 기반, 숫자는 초기값이며 루프가 실측으로 보정한다. 민감도 검증: 5개 대안 가중치 전부에서 top5 유지 = 3개 채널(글램미, 누누제인, 부지런한딩) · 효율(점수)과 총량(반응량)을 분리 표기 — 배치는 활용 4(총량 상위) + 탐색 1(정보 가치)로 구성</div>
 <div class="rows">
 <div class="row">
   <div class="rank">1</div>
-  <div class="name">글램미<span class="sub">구독 14,400</span></div>
+  <div class="name">글램미<span class="sub">구독 14,400 · 반응량 192</span></div>
   <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 2.8%"></div><div class="seg" style="width:25%;background:#0d9668" title="R2 25점 — 구독자 14,400"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">72</div>
   <div class="why">반응률 2.8% · 구독자 14,400 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">2</div>
-  <div class="name">부지런한딩<span class="sub">구독 207</span></div>
+  <div class="name">부지런한딩<span class="sub">구독 207 · 반응량 31</span></div>
   <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 3.0%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 207"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">63</div>
   <div class="why">반응률 3.0% · 구독자 207 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">3</div>
-  <div class="name">조코딩 JoCoding<span class="sub">구독 ?</span> <span class="tag est">추정</span></div>
+  <div class="name">조코딩 JoCoding<span class="sub">구독 ? · 반응량 115</span> <span class="tag est">추정</span></div>
   <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 1.5%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 미확인(추정: 최저밴드 보수 처리)"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">55</div>
   <div class="why">반응률 1.5% · 구독자 미확인(추정: 최저밴드 보수 처리) · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">4</div>
-  <div class="name">보아따<span class="sub">구독 158</span></div>
+  <div class="name">보아따<span class="sub">구독 158 · 반응량 70</span></div>
   <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.8%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 158"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">53</div>
   <div class="why">반응률 0.8% · 구독자 158 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">5</div>
-  <div class="name">누누제인<span class="sub">구독 19</span></div>
+  <div class="name">누누제인<span class="sub">구독 19 · 반응량 10</span></div>
   <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.8%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 19"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">53</div>
   <div class="why">반응률 0.8% · 구독자 19 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">6</div>
-  <div class="name">예진다움<span class="sub">구독 180</span></div>
+  <div class="name">예진다움<span class="sub">구독 180 · 반응량 10</span></div>
   <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.8%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 180"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">53</div>
   <div class="why">반응률 0.8% · 구독자 180 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">7</div>
-  <div class="name">오지월드<span class="sub">구독 251</span></div>
+  <div class="name">오지월드<span class="sub">구독 251 · 반응량 402</span></div>
   <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.7%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 251"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">53</div>
   <div class="why">반응률 0.7% · 구독자 251 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">8</div>
-  <div class="name">선데이미디어<span class="sub">구독 27,900</span></div>
+  <div class="name">선데이미디어<span class="sub">구독 27,900 · 반응량 58</span></div>
   <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 반응률 0.2%"></div><div class="seg" style="width:25%;background:#0d9668" title="R2 25점 — 구독자 27,900"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">52</div>
   <div class="why">반응률 0.2% · 구독자 27,900 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">9</div>
-  <div class="name">아림다운<span class="sub">구독 1,200</span></div>
+  <div class="name">아림다운<span class="sub">구독 1,200 · 반응량 55</span></div>
   <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.7%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 1,200"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">45</div>
   <div class="why">반응률 0.7% · 구독자 1,200 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">10</div>
-  <div class="name">에일린의행복한리뷰<span class="sub">구독 6,550</span></div>
+  <div class="name">에일린의행복한리뷰<span class="sub">구독 6,550 · 반응량 9</span></div>
   <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 반응률 0.5%"></div><div class="seg" style="width:18%;background:#0d9668" title="R2 18점 — 구독자 6,550"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">45</div>
   <div class="why">반응률 0.5% · 구독자 6,550 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">11</div>
-  <div class="name">베스트픽업5<span class="sub">구독 122</span></div>
+  <div class="name">베스트픽업5<span class="sub">구독 122 · 반응량 1</span></div>
   <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 표본 부족(조회수 2 &lt; 500)"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 122"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">43</div>
   <div class="why">표본 부족(조회수 2 &lt; 500) · 구독자 122 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">12</div>
-  <div class="name">쏭이 ssongyi<span class="sub">구독 603</span></div>
+  <div class="name">쏭이 ssongyi<span class="sub">구독 603 · 반응량 20</span></div>
   <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 반응률 0.3%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 603"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">43</div>
   <div class="why">반응률 0.3% · 구독자 603 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">13</div>
-  <div class="name">아임깡지imgangji<span class="sub">구독 1,980</span></div>
+  <div class="name">아임깡지imgangji<span class="sub">구독 1,980 · 반응량 36</span></div>
   <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.6%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 1,980"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">41</div>
   <div class="why">반응률 0.6% · 구독자 1,980 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">14</div>
-  <div class="name">뷰티,데일리윤드 (윤드뷰티&amp;데일리)<span class="sub">구독 1,220</span></div>
+  <div class="name">뷰티,데일리윤드 (윤드뷰티&amp;데일리)<span class="sub">구독 1,220 · 반응량 0</span></div>
   <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 반응률 0.0%"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 1,220"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">35</div>
   <div class="why">반응률 0.0% · 구독자 1,220 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">15</div>
-  <div class="name">아.가.리<span class="sub">구독 93</span></div>
+  <div class="name">아.가.리<span class="sub">구독 93 · 반응량 2</span></div>
   <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 표본 부족(조회수 472 &lt; 500)"></div><div class="seg" style="width:8%;background:#0d9668" title="R2 8점 — 구독자 93"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">35</div>
   <div class="why">표본 부족(조회수 472 &lt; 500) · 구독자 93 · 마커 없음(중립) · 뷰티 키워드 일치</div>
@@ -394,7 +395,7 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
   <div class="act">유지</div>
 </div>
 <div class="urow drop">
-  <div class="name">누누제인</div>
+  <div class="name">누누제인 <span class="tag est">탐색</span></div>
   <div class="delta">53 → <b>39</b> <span class="arr">▼</span></div>
   <div class="act">제외</div>
 </div>

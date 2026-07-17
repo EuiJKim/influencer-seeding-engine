@@ -19,15 +19,26 @@ OUT = "data/youtube-enriched.csv"
 
 def main():
     out = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    with open(SRC, encoding="utf-8-sig") as fh:
-        targets = [r for r in csv.DictReader(fh) if r["brand_in_title"] == "True"]
-    # 같은 영상이 여러 검색어에 걸릴 수 있으니 URL 기준 중복 제거
-    seen, uniq = set(), []
+    args = sys.argv[1:]
+    src, out_csv, mode_all, cap = SRC, OUT, False, 20
+    for a in args:
+        if a.startswith("--src="):
+            src = a[len("--src="):]
+        elif a.startswith("--out="):
+            out_csv = a[len("--out="):]
+        elif a == "--all":
+            mode_all = True  # 후보 풀 모드: 브랜드 필터 없이 전체 (채널 dedupe + 캡)
+    with open(src, encoding="utf-8-sig") as fh:
+        rows_in = list(csv.DictReader(fh))
+    targets = rows_in if mode_all else [r for r in rows_in if r["brand_in_title"] == "True"]
+    # 채널 기준 중복 제거(대표 영상 = 조회수 최대), 조회수 상위 cap개로 제한
+    by_ch = {}
     for r in targets:
-        if r["url"] not in seen:
-            seen.add(r["url"])
-            uniq.append(r)
-    out.write(f"보강 대상: {len(uniq)}개 영상\n")
+        k = r["channel"]
+        if k not in by_ch or int(r["views"] or 0) > int(by_ch[k]["views"] or 0):
+            by_ch[k] = r
+    uniq = sorted(by_ch.values(), key=lambda r: -int(r["views"] or 0))[:cap]
+    out.write(f"보강 대상: {len(uniq)}개 영상 (src={src}, all={mode_all})\n")
 
     rows = []
     with YoutubeDL({"quiet": True, "skip_download": True}) as ydl:
@@ -52,11 +63,11 @@ def main():
             out.write(f"  ok {rows[-1]['channel'][:20]:20} subs:{rows[-1]['subscribers']}\n")
             out.flush()
 
-    with open(OUT, "w", newline="", encoding="utf-8-sig") as fh:
+    with open(out_csv, "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)
-    out.write(f"저장: {OUT} ({len(rows)}건)\n")
+    out.write(f"저장: {out_csv} ({len(rows)}건)\n")
     out.flush()
 
 

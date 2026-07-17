@@ -34,10 +34,11 @@ def score_rows(scores):
             for k, f in [(1, "engagement"), (2, "scale"), (3, "authenticity"), (4, "relevance")])
         est = ' <span class="tag est">추정</span>' if r["estimated"] else ""
         subs = f'{int(r["subscribers"]):,}' if r["subscribers"] else "?"
+        engaged = f'{int(r.get("engaged_abs") or 0):,}'
         why = " · ".join(e(r[f"R{k}_why"]) for k in (1, 2, 3, 4))
         out.append(f'''<div class="row">
   <div class="rank">{i}</div>
-  <div class="name">{e(r["channel"])}<span class="sub">구독 {subs}</span>{est}</div>
+  <div class="name">{e(r["channel"])}<span class="sub">구독 {subs} · 반응량 {engaged}</span>{est}</div>
   <div class="bar">{segs}</div>
   <div class="pts">{r["total"]}</div>
   <div class="why">{why}</div>
@@ -66,8 +67,9 @@ def loop_rows(updated):
     for u in updated:
         old, new = int(u["old_score"]), int(u["new_score"])
         arrow = "▲" if new > old else ("▼" if new < old else "―")
+        role = f' <span class="tag est">{e(u["role"])}</span>' if u.get("role") == "탐색" else ""
         out.append(f'''<div class="urow {cls.get(u["action"], "keep")}">
-  <div class="name">{e(u["channel"])}</div>
+  <div class="name">{e(u["channel"])}{role}</div>
   <div class="delta">{old} → <b>{new}</b> <span class="arr">{arrow}</span></div>
   <div class="act">{e(u["action"])}</div>
 </div>''')
@@ -323,8 +325,9 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
   <div class="layer core"><span class="ltag">물리 법칙 ← 오늘 구현</span><b>소비자 상태 세계</b> — 모름→인지→관심→신뢰→구매→전파의 상태 전이 모델. 시뮬레이터와 동일물: 전이 확률이 곧 파라미터, 실측이 곧 보정</div>
 </div>
 
-<h2>Decision<span class="big">① 판단 — 누구에게 보낼 것인가 <span style="color:var(--faint);font-weight:400;font-size:14px">(실제 유튜브 공개 데이터 {n_channels}개 채널)</span></span></h2>
+<h2>Decision<span class="big">① 판단 — 누구에게 보낼 것인가 <span style="color:var(--faint);font-weight:400;font-size:14px">(카테고리 검색 기반 후보 풀 {n_channels}개 채널, 실제 유튜브 공개 데이터)</span></span></h2>
 <div class="legend">규칙: <i style="background:{c1}"></i>R1 반응률(40) <i style="background:{c2}"></i>R2 규모적합(25) <i style="background:{c3}"></i>R3 진정성(20) <i style="background:{c4}"></i>R4 카테고리(15) — 막대에 마우스를 올리면 근거</div>
+<div class="hint">가중치 근거: 순서(반응률&gt;규모&gt;진정성&gt;카테고리)는 공개 사례 기반, 숫자는 초기값이며 루프가 실측으로 보정한다. 민감도 검증: 5개 대안 가중치 전부에서 top5 유지 = {sens_common} · 효율(점수)과 총량(반응량)을 분리 표기 — 배치는 활용 4(총량 상위) + 탐색 1(정보 가치)로 구성</div>
 <div class="rows">
 {scores}
 </div>
@@ -355,8 +358,12 @@ def main():
     scores = read("influencer-scores")
     ledger = read("attribution-ledger")
     updated = read("updated-scores")
+    sys.path.insert(0, "tools")
+    from score_influencers import sensitivity
+    _, common = sensitivity(scores)
+    sens = f"{len(common)}개 채널({', '.join(sorted(c[:6] for c in common))})"
     doc = PAGE.format(
-        n_channels=len(scores),
+        n_channels=len(scores), sens_common=sens,
         c1=R_COLORS["R1"], c2=R_COLORS["R2"], c3=R_COLORS["R3"], c4=R_COLORS["R4"],
         ontology=ONTOLOGY_SVG, lookalikes=lookalike_rows(),
         scores=score_rows(scores), ledger=ledger_rows(ledger), loop=loop_rows(updated))

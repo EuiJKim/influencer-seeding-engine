@@ -78,6 +78,10 @@ def score_row(row, pack):
         "channel": row.get("channel", ""),
         "subscribers": row.get("subscribers", ""),
         "total": s1 + s2 + s3 + s4,
+        # 효율(점수)과 별개로 총량 관점: 반응 절대량 = 조회 × 반응률 = 좋아요+댓글.
+        # 반응률 3%짜리 200명 채널은 효율은 높아도 절대 매출량을 못 만든다 — 배치는 둘 다 본다.
+        "reach_views": views,
+        "engaged_abs": likes + comments,
         "R1_engagement": s1, "R1_why": w1,
         "R2_scale": s2, "R2_why": w2,
         "R3_authenticity": s3, "R3_why": w3,
@@ -86,6 +90,31 @@ def score_row(row, pack):
         "title": title,
         "url": row.get("url", ""),
     }
+
+
+SENSITIVITY_SCHEMES = {
+    "현행 40/25/20/15": (40, 25, 20, 15),
+    "균등 25/25/25/25": (25, 25, 25, 25),
+    "반응률 강조 50/20/15/15": (50, 20, 15, 15),
+    "규모 강조 25/40/20/15": (25, 40, 20, 15),
+    "진정성 강조 30/20/35/15": (30, 20, 35, 15),
+}
+
+
+def sensitivity(scored):
+    """가중치 임의성 방어: 배점을 5가지 방식으로 치환해도 상위 5 구성이 안정적인지.
+    반환: (scheme별 top5 리스트, 전 scheme 공통 top5 채널 집합)"""
+    def ratios(r):
+        return (int(r["R1_engagement"]) / 40, int(r["R2_scale"]) / 25,
+                int(r["R3_authenticity"]) / 20, int(r["R4_relevance"]) / 15)
+    tops = {}
+    for name, w in SENSITIVITY_SCHEMES.items():
+        ranked = sorted(scored, key=lambda r: (-sum(a * b for a, b in zip(ratios(r), w)), r["channel"]))
+        tops[name] = [r["channel"] for r in ranked[:5]]
+    common = set(tops["현행 40/25/20/15"])
+    for t in tops.values():
+        common &= set(t)
+    return tops, common
 
 
 def selftest():
@@ -113,6 +142,9 @@ def selftest():
          {"views": "7777", "likes": "333", "comments": "22", "subscribers": "15000",
           "title": "선크림 추천"}, lambda r: r == score_row({"views": "7777", "likes": "333",
           "comments": "22", "subscribers": "15000", "title": "선크림 추천"}, pack)),
+        ("총량 관점: 반응 절대량(engaged_abs)=좋아요+댓글, 도달(reach_views)=조회수",
+         {"views": "10000", "likes": "480", "comments": "40", "subscribers": "25000",
+          "title": "내돈내산 스킨케어 리뷰"}, lambda r: r["engaged_abs"] == 520 and r["reach_views"] == 10000),
     ]
     passed = 0
     out = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
@@ -121,16 +153,37 @@ def selftest():
         ok = check(r)
         passed += ok
         out.write(f"{'PASS' if ok else 'FAIL'}  {name}\n")
-    out.write(f"\n{passed}/{len(cases)} passed\n")
+
+    # 민감도: 모든 축에서 우세한 채널은 어떤 가중치 치환에서도 top5여야 한다
+    synth = [score_row({"views": "50000", "likes": "2600", "comments": "200",
+                        "subscribers": "30000", "title": "내돈내산 선크림 리뷰"}, pack)]  # 전 축 우세
+    synth[0]["channel"] = "DOMINANT"
+    for i in range(8):
+        w = score_row({"views": "1000", "likes": "10", "comments": "1",
+                       "subscribers": "500", "title": "브이로그"}, pack)
+        w["channel"] = f"WEAK{i}"
+        synth.append(w)
+    _, common = sensitivity(synth)
+    ok = "DOMINANT" in common
+    passed += ok
+    out.write(f"{'PASS' if ok else 'FAIL'}  민감도: 전 축 우세 채널은 5개 가중치 치환 전부에서 top5 유지\n")
+    total_cases = len(cases) + 1
+    out.write(f"\n{passed}/{total_cases} passed\n")
     out.flush()
-    return 0 if passed == len(cases) else 1
+    return 0 if passed == total_cases else 1
 
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         sys.exit(selftest())
+    src, out_csv = SRC, OUT
+    for a in sys.argv[1:]:
+        if a.startswith("--src="):
+            src = a[len("--src="):]
+        elif a.startswith("--out="):
+            out_csv = a[len("--out="):]
     pack = load_pack()
-    with open(SRC, encoding="utf-8-sig") as fh:
+    with open(src, encoding="utf-8-sig") as fh:
         rows = list(csv.DictReader(fh))
     # 채널 단위로 대표 영상 1개(최고 점수)만 남김
     scored = [score_row(r, pack) for r in rows]
@@ -141,19 +194,22 @@ def main():
             by_channel[k] = s
     ranked = sorted(by_channel.values(), key=lambda s: -s["total"])
 
-    with open(OUT, "w", newline="", encoding="utf-8-sig") as fh:
+    with open(out_csv, "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.DictWriter(fh, fieldnames=list(ranked[0].keys()))
         w.writeheader()
         w.writerows(ranked)
 
     out = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    out.write(f"{'순위':<3} {'점수':<4} {'채널':<22} {'구독자':>8}  근거 요약\n")
-    out.write("-" * 90 + "\n")
+    out.write(f"{'순위':<3} {'점수':<4} {'채널':<22} {'구독자':>9} {'반응절대량':>7}  근거 요약\n")
+    out.write("-" * 100 + "\n")
     for i, s in enumerate(ranked, 1):
         est = " (추정)" if s["estimated"] else ""
-        out.write(f"{i:<4} {s['total']:<5} {s['channel'][:20]:<22} {s['subscribers'] or '?':>8}{est}"
+        out.write(f"{i:<4} {s['total']:<5} {s['channel'][:20]:<22} {s['subscribers'] or '?':>9}{est} {s['engaged_abs']:>7,}"
                   f"  R1:{s['R1_engagement']} R2:{s['R2_scale']} R3:{s['R3_authenticity']} R4:{s['R4_relevance']} | {s['R1_why']}\n")
-    out.write(f"\n저장: {OUT} ({len(ranked)}개 채널)\n")
+
+    tops, common = sensitivity(ranked)
+    out.write(f"\n가중치 민감도: 5개 대안 가중치 전부에서 top5 유지 = {len(common)}개 채널 ({', '.join(sorted(common))})\n")
+    out.write(f"저장: {out_csv} ({len(ranked)}개 채널)\n")
     out.flush()
 
 

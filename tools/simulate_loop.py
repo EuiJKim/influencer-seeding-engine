@@ -37,10 +37,27 @@ def _code(channel, i):
     return f"MEDI-{slug}{i}"
 
 
+def select_batch_rows(rows):
+    """배치 5 = 활용 4 + 탐색 1.
+    활용: 반응 절대량(engaged_abs)이 풀 중앙값 이상인 채널 중 총점 상위 4 — 총량(매출)도 효율(점수)도 갖춘 채널.
+    탐색: 중앙값 미만(소형·불확실) 중 총점 최상위 1 — 정보 가치를 위해 배치의 20%를 실험에 배정.
+    근거: 단일 라운드는 근접 채널을 구분 못 한다(05 문서) → 해상도를 올리는 표본이 필요하다."""
+    engaged = sorted(int(r.get("engaged_abs") or 0) for r in rows)
+    median = engaged[len(engaged) // 2] if engaged else 0
+    big = [r for r in rows if int(r.get("engaged_abs") or 0) >= median]
+    small = [r for r in rows if int(r.get("engaged_abs") or 0) < median]
+    exploit = sorted(big, key=lambda r: (-int(r["total"]), r["channel"]))[:4]
+    explore = sorted(small, key=lambda r: (-int(r["total"]), r["channel"]))[:1]
+    return exploit + explore, ["활용"] * len(exploit) + ["탐색"] * len(explore)
+
+
 def load_top5():
     with open(SCORES, encoding="utf-8-sig") as fh:
         rows = list(csv.DictReader(fh))
-    return rows[:5]
+    batch_rows, roles = select_batch_rows(rows)
+    for r, role in zip(batch_rows, roles):
+        r["role"] = role
+    return batch_rows
 
 
 def simulate(top5, rng):
@@ -49,6 +66,7 @@ def simulate(top5, rng):
     for i, r in enumerate(top5):
         batch.append({
             "rank": i + 1, "channel": r["channel"], "old_score": int(r["total"]),
+            "role": r.get("role", "활용"),
             "code": _code(r["channel"], i), "post_day": 3 + i,  # D+3부터 하루 간격 게시
             "true_conv": TRUE_CONV[i],  # [SYNTHETIC] 심어둔 정답 (실전엔 없음)
         })
@@ -101,7 +119,8 @@ def update_scores(batch, ledger):
     for b, l in zip(batch, ledger):
         measured = 100 * l["certain_orders"] / max_orders
         new = round(0.5 * b["old_score"] + 0.5 * measured)
-        out.append({"channel": b["channel"], "old_score": b["old_score"],
+        out.append({"channel": b["channel"], "role": b.get("role", "활용"),
+                    "old_score": b["old_score"],
                     "measured_pct": round(measured), "new_score": new,
                     "action": "재계약+닮은꼴 발굴" if new >= 70 else ("유지" if new >= 45 else "제외")})
     return sorted(out, key=lambda r: -r["new_score"])
@@ -143,6 +162,8 @@ def selftest():
          u1[0]["channel"] != b1[0]["channel"]),
         ("합성 라벨: 판매 로그에 kind 라벨 보존(감사 가능)",
          all("kind" in s for s in s1)),
+        ("배치 구성: 활용 4 + 탐색 1 (탐색 = 정보 가치 예산)",
+         [b["role"] for b in b1].count("활용") == 4 and [b["role"] for b in b1].count("탐색") == 1),
     ]
     passed = 0
     for name, ok in checks:
@@ -159,9 +180,9 @@ def main():
     batch, sales, ledger, updated, base_avg = run()
     out = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
     out.write("[SYNTHETIC] 합성 데이터 시뮬레이션 — 매출·전환은 가상\n\n")
-    out.write("상태 2 — 시딩 배치 (점수 상위 5, 전용코드 부여)\n")
+    out.write("상태 2 — 시딩 배치 (활용 4 + 탐색 1, 전용코드 부여)\n")
     for b in batch:
-        out.write(f"  {b['rank']}. {b['channel'][:16]:16} 사전점수 {b['old_score']:3}  코드 {b['code']:16} D+{b['post_day']} 게시\n")
+        out.write(f"  {b['rank']}. [{b['role']}] {b['channel'][:16]:16} 사전점수 {b['old_score']:3}  코드 {b['code']:16} D+{b['post_day']} 게시\n")
     out.write(f"\n상태 4 — 28일 합성 판매 로그 {len(sales)}행 (기저 평균 {base_avg:.0f}건/일)\n")
     out.write("\n상태 5 — 인과 장부 (확실 | 추정 분리)\n")
     for l in ledger:
