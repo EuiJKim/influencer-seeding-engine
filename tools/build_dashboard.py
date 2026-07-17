@@ -73,6 +73,63 @@ def loop_rows(updated):
     return "\n".join(out)
 
 
+ONTOLOGY_SVG = """<svg viewBox="0 0 1060 330" width="100%" style="max-width:1060px" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+<marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker></defs>
+<text x="1040" y="24" fill="#9ca3af" font-size="11" text-anchor="end">● 확정(수집됨)  ◐ 추정(간접신호)  ○ 당일보강</text>
+<rect x="20" y="55" width="180" height="80" rx="8" fill="#151a26" stroke="#6366f1"/>
+<text x="110" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">인플루언서</text>
+<text x="110" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">● 구독자·반응률</text>
+<text x="110" y="112" fill="#9ca3af" font-size="11" text-anchor="middle">◐ 진정성·카테고리</text>
+<rect x="250" y="55" width="180" height="80" rx="8" fill="#151a26" stroke="#6366f1"/>
+<text x="340" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">콘텐츠</text>
+<text x="340" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">● 조회·좋아요·게시일</text>
+<text x="340" y="112" fill="#9ca3af" font-size="11" text-anchor="middle">◐ 협찬 여부(표기)</text>
+<rect x="480" y="55" width="160" height="80" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="560" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
+<text x="560" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">인스타 릴스 · 유튜브</text>
+<text x="560" y="112" fill="#6b7280" font-size="10" text-anchor="middle">스킨케어 인지 60%*</text>
+<rect x="680" y="55" width="160" height="80" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="760" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">검증</text>
+<text x="760" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">네이버 블로그 · 올리브영</text>
+<text x="760" y="112" fill="#6b7280" font-size="10" text-anchor="middle">탐색 1위 올리브영 34.5%*</text>
+<rect x="880" y="55" width="160" height="80" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="960" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
+<text x="960" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">자사몰 · 올리브영</text>
+<text x="960" y="112" fill="#6b7280" font-size="10" text-anchor="middle">○ 전용코드 부착 지점</text>
+<rect x="700" y="210" width="340" height="75" rx="8" fill="#0d1f14" stroke="#22c55e"/>
+<text x="870" y="232" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">전환 신호 (인과 장부)</text>
+<text x="870" y="252" fill="#a7f3d0" font-size="11" text-anchor="middle">○ 전용코드 구매 = 확실</text>
+<text x="870" y="268" fill="#fbbf24" font-size="11" text-anchor="middle">○ 48h 시간창 상승 = 추정 (절대 안 섞음)</text>
+<line x1="200" y1="95" x2="248" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="430" y1="95" x2="478" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="640" y1="95" x2="678" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="840" y1="95" x2="878" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="960" y1="135" x2="915" y2="208" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<path d="M 700 250 C 350 250 110 220 110 140" fill="none" stroke="#34d399" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arg)"/>
+<text x="330" y="238" fill="#34d399" font-size="12" font-weight="bold">루프: 실측 → 점수 갱신 → 닮은꼴 발굴 → 다음 배치</text>
+<text x="480" y="320" fill="#4b5563" font-size="10">* 출처: 픽플리 2026-1Q 소비 여정 조사 (docs/02-platform-research.md)</text>
+</svg>"""
+
+
+def lookalike_rows():
+    try:
+        rows = read("lookalikes")
+    except FileNotFoundError:
+        return '<div class="hint">data/lookalikes.csv 없음 — find_lookalikes.py 먼저 실행</div>'
+    out = []
+    for r in rows:
+        subs = f'{int(r["subscribers"]):,}' if r["subscribers"] else "?"
+        out.append(f'''<div class="krow">
+  <div class="name">{e(r["ace"])} <span class="sub">에이스</span></div>
+  <div class="karr">→</div>
+  <div class="name">{e(r["candidate"])}<span class="sub">구독 {subs} · 미시딩</span></div>
+  <div class="ksim">유사도 {e(r["similarity_pct"])}%</div>
+  <div class="why" style="grid-column:1/5">{e(r["why"])}</div>
+</div>''')
+    return "\n".join(out)
+
+
 PAGE = """<!DOCTYPE html>
 <html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -106,11 +163,18 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 .delta {{ font-size:14px }} .delta b {{ font-size:17px }}
 .up .arr {{ color:#34d399 }} .drop .arr {{ color:#f87171 }}
 .act {{ font-size:12px; color:#9ca3af; white-space:nowrap }}
+.krow {{ display:grid; grid-template-columns:190px 30px 260px 1fr; gap:8px; align-items:center; padding:8px 12px; background:#131a2a; border-radius:6px; margin-bottom:5px }}
+.karr {{ color:#34d399; font-weight:bold; text-align:center }}
+.ksim {{ color:#93c5fd; font-size:13px; font-weight:bold }}
+.krow .why {{ font-size:11px; color:#6b7280 }}
 .foot {{ margin-top:30px; font-size:12px; color:#6b7280; border-top:1px solid #1f2430; padding-top:12px; line-height:1.9 }}
 </style></head><body>
 
-<h1>인플루언서 시딩 엔진 <span class="badge">셀프테스트 13/13 PASS</span><span class="badge syn">매출 데이터 [SYNTHETIC]</span></h1>
+<h1>인플루언서 시딩 엔진 <span class="badge">셀프테스트 18/18 PASS</span><span class="badge syn">매출 데이터 [SYNTHETIC]</span></h1>
 <div class="meta">판단은 근거 있는 규칙이, 증명은 전용코드가, 개선은 루프가 — 감이 아니라 시스템이.</div>
+
+<h2>⓪ 온톨로지 — 시딩의 세계관 (콘텐츠가 매출이 되기까지)</h2>
+{ontology}
 
 <h2>① 판단 — 누구에게 보낼 것인가 <span style="color:#6b7280;font-weight:normal">(실제 유튜브 공개 데이터 {n_channels}개 채널)</span></h2>
 <div class="legend">규칙: <i style="background:{c1}"></i>R1 반응률(40) <i style="background:{c2}"></i>R2 규모적합(25) <i style="background:{c3}"></i>R3 진정성(20) <i style="background:{c4}"></i>R4 카테고리(15) — 막대에 마우스를 올리면 근거</div>
@@ -123,6 +187,10 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 <h2>③ 루프 — 실측이 점수를 갱신한다</h2>
 <div class="hint">사전 1위(글램미 72)가 실측 후 강등 — 시스템이 자기 예측의 오류를 스스로 교정</div>
 {loop}
+
+<h2>④ 확장 — 에이스의 닮은꼴 발굴 (다음 배치 후보)</h2>
+<div class="hint">실측 검증된 채널과 규칙 프로필(R1~R4)이 가장 가까운 미시딩 채널 — 임베딩·추측 없이 규칙 점수로만</div>
+{lookalikes}
 
 <div class="foot">
 정직한 한계 — ① 인스타그램 자동 수집 불가(로그인 장벽): 수동 샘플링으로 대체 ·
@@ -139,6 +207,7 @@ def main():
     doc = PAGE.format(
         n_channels=len(scores),
         c1=R_COLORS["R1"], c2=R_COLORS["R2"], c3=R_COLORS["R3"], c4=R_COLORS["R4"],
+        ontology=ONTOLOGY_SVG, lookalikes=lookalike_rows(),
         scores=score_rows(scores), ledger=ledger_rows(ledger), loop=loop_rows(updated))
     with open(OUT, "w", encoding="utf-8") as fh:
         fh.write(doc)

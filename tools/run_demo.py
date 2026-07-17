@@ -35,6 +35,7 @@ def main():
     say("0. 신뢰부터 — 엔진 셀프테스트 (판정 로직이 맞다는 증명)")
     run(["tools/score_influencers.py", "selftest"])
     run(["tools/simulate_loop.py", "selftest"])
+    run(["tools/find_lookalikes.py", "selftest"])
 
     say("1. 판단 — 누구에게 보낼 것인가 (실제 유튜브 데이터 15개 채널, 규칙 R1~R4)")
     print("데이터: 메디테라피 언급 영상 실수집분 (data/youtube-enriched.csv)")
@@ -43,7 +44,10 @@ def main():
     say("2. 증명과 루프 — 시딩→매출→인과 장부→점수 갱신 ([SYNTHETIC] 합성 매출)")
     run(["tools/simulate_loop.py"])
 
-    say("3. 대시보드 — 심사용 한 장 (dashboard.html 생성 + 브라우저 오픈)")
+    say("3. 확장 — 에이스의 닮은꼴 발굴 (다음 배치 후보)")
+    run(["tools/find_lookalikes.py"])
+
+    say("4. 대시보드 — 심사용 한 장 (dashboard.html 생성 + 브라우저 오픈)")
     run(["tools/build_dashboard.py"])
     import os
     import webbrowser
