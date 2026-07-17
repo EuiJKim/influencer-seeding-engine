@@ -199,6 +199,14 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 .delta {{ font-size:14px }} .delta b {{ font-size:17px }}
 .up .arr {{ color:#34d399 }} .drop .arr {{ color:#f87171 }}
 .act {{ font-size:12px; color:#9ca3af; white-space:nowrap }}
+.stack {{ display:flex; flex-direction:column; gap:6px; margin:6px 0 10px }}
+.layer {{ border-radius:8px; padding:12px 16px; font-size:12.5px; color:#c7ccd8; line-height:1.5 }}
+.layer b {{ color:#e5e7eb; margin-right:6px }}
+.ltag {{ display:inline-block; font-size:10.5px; border-radius:4px; padding:1px 8px; margin-right:10px; vertical-align:1px }}
+.layer.core {{ background:#101726; border:1.5px solid #3b82f6 }} .core .ltag {{ background:#1e3a8a; color:#93c5fd }}
+.layer.view {{ background:#151a26; border:1px solid #334155 }} .view .ltag {{ background:#1f2937; color:#9ca3af }}
+.layer.output {{ background:#0d1f14; border:1px solid #166534 }} .output .ltag {{ background:#064e3b; color:#34d399 }}
+.layer.roadmap {{ background:#17131f; border:1px dashed #6d28d9 }} .roadmap .ltag {{ background:#2e1065; color:#a78bfa }}
 .whygrid {{ display:grid; grid-template-columns:1fr 170px 1fr; gap:14px; margin:6px 0 8px }}
 .whycard {{ border-radius:10px; padding:16px 18px }}
 .whycard.bad {{ background:#1c1216; border:1px solid #7f1d1d }}
@@ -239,6 +247,15 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 
 <h2>⓪ 온톨로지 — 소비자의 세계 (마음이 움직여 구매가 되기까지)</h2>
 {ontology}
+
+<h2>매트릭스의 구조 — 하나의 세계, 네 개의 층</h2>
+<div class="hint">네 세계관은 경쟁이 아니라 층위다: 아래층이 물리 법칙, 위로 갈수록 그 세계를 쓰는 방법</div>
+<div class="stack">
+  <div class="layer roadmap"><span class="ltag">다음 버전</span><b>전파 네트워크</b> — 전파 상태가 데이터로 잡히기 시작하면 여는 층 (팔로워·입소문 그래프 확산 모델)</div>
+  <div class="layer output"><span class="ltag">루프의 산출물</span><b>수요 레시피</b> — 세계를 돌려 학습하는 공략집: 무엇이(콘텐츠) × 누구를 통해(채널) × 언제 → 수요</div>
+  <div class="layer view"><span class="ltag">경영 뷰</span><b>퍼널 보고</b> — 같은 세계를 경영자 시점으로 투사한 화면 (아래 ①~④ 섹션이 이 뷰)</div>
+  <div class="layer core"><span class="ltag">물리 법칙 ← 오늘 구현</span><b>소비자 상태 세계</b> — 모름→인지→관심→신뢰→구매→전파. 시뮬레이터와 동일물: 전이 확률이 곧 파라미터, 실측이 곧 보정</div>
+</div>
 
 <h2>① 판단 — 누구에게 보낼 것인가 <span style="color:#6b7280;font-weight:normal">(실제 유튜브 공개 데이터 {n_channels}개 채널)</span></h2>
 <div class="legend">규칙: <i style="background:{c1}"></i>R1 반응률(40) <i style="background:{c2}"></i>R2 규모적합(25) <i style="background:{c3}"></i>R3 진정성(20) <i style="background:{c4}"></i>R4 카테고리(15) — 막대에 마우스를 올리면 근거</div>
