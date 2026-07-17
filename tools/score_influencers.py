@@ -23,6 +23,27 @@ def load_pack():
         return json.load(fh)["rules"]
 
 
+def load_floor():
+    with open(RULEPACK, encoding="utf-8") as fh:
+        return json.load(fh)["pool_floor"]
+
+
+def apply_pool_floor(rows, floor):
+    """풀 자격 필터: 최소 구독 미만·미확인 채널은 점수화 전에 제외 (비교 성립 조건).
+    반환: (자격 통과 rows, 제외 [(채널, 사유)])"""
+    min_subs = floor["min_subscribers"]
+    kept, excluded = [], []
+    for r in rows:
+        subs = r.get("subscribers") or ""
+        if not subs:
+            excluded.append((r.get("channel", "?"), "구독자 미확인(자격 검증 불가)"))
+        elif int(subs) < min_subs:
+            excluded.append((r.get("channel", "?"), f"구독 {int(subs):,} < 하한 {min_subs:,}"))
+        else:
+            kept.append(r)
+    return kept, excluded
+
+
 def r1_engagement(views, likes, comments, rule):
     if not views:
         return 0, "조회수 0/미확인"
@@ -167,7 +188,18 @@ def selftest():
     ok = "DOMINANT" in common
     passed += ok
     out.write(f"{'PASS' if ok else 'FAIL'}  민감도: 전 축 우세 채널은 5개 가중치 치환 전부에서 top5 유지\n")
-    total_cases = len(cases) + 1
+
+    # 풀 자격: 구독 하한 미만·미확인은 점수화 전에 제외
+    floor = load_floor()
+    kept, excluded = apply_pool_floor([
+        {"channel": "OK", "subscribers": str(floor["min_subscribers"])},
+        {"channel": "TINY", "subscribers": "19"},
+        {"channel": "UNKNOWN", "subscribers": ""},
+    ], floor)
+    ok = [r["channel"] for r in kept] == ["OK"] and len(excluded) == 2
+    passed += ok
+    out.write(f"{'PASS' if ok else 'FAIL'}  풀 자격: 구독 하한({floor['min_subscribers']:,}) 미만·미확인 채널은 비교 대상에서 제외\n")
+    total_cases = len(cases) + 2
     out.write(f"\n{passed}/{total_cases} passed\n")
     out.flush()
     return 0 if passed == total_cases else 1
@@ -183,8 +215,10 @@ def main():
         elif a.startswith("--out="):
             out_csv = a[len("--out="):]
     pack = load_pack()
+    floor = load_floor()
     with open(src, encoding="utf-8-sig") as fh:
         rows = list(csv.DictReader(fh))
+    rows, excluded = apply_pool_floor(rows, floor)
     # 채널 단위로 대표 영상 1개(최고 점수)만 남김
     scored = [score_row(r, pack) for r in rows]
     by_channel = {}
@@ -209,6 +243,10 @@ def main():
 
     tops, common = sensitivity(ranked)
     out.write(f"\n가중치 민감도: 5개 대안 가중치 전부에서 top5 유지 = {len(common)}개 채널 ({', '.join(sorted(common))})\n")
+    if excluded:
+        out.write(f"풀 자격 제외: {len(excluded)}건 (구독 하한 {floor['min_subscribers']:,} 미만/미확인)\n")
+        for ch, why in excluded[:5]:
+            out.write(f"  - {ch[:20]}: {why}\n")
     out.write(f"저장: {out_csv} ({len(ranked)}개 채널)\n")
     out.flush()
 
