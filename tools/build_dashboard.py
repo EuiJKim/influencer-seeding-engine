@@ -163,6 +163,15 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 .delta {{ font-size:14px }} .delta b {{ font-size:17px }}
 .up .arr {{ color:#34d399 }} .drop .arr {{ color:#f87171 }}
 .act {{ font-size:12px; color:#9ca3af; white-space:nowrap }}
+.whygrid {{ display:grid; grid-template-columns:1fr 170px 1fr; gap:14px; margin:6px 0 8px }}
+.whycard {{ border-radius:10px; padding:16px 18px }}
+.whycard.bad {{ background:#1c1216; border:1px solid #7f1d1d }}
+.whycard.good {{ background:#0d1f14; border:1px solid #166534 }}
+.whyhead {{ font-size:12px; font-weight:bold; letter-spacing:.3px; margin-bottom:10px }}
+.bad .whyhead {{ color:#f87171 }} .good .whyhead {{ color:#34d399 }}
+.whyitem {{ font-size:12px; color:#c7ccd8; line-height:1.55; margin-bottom:8px }}
+.whypivot {{ display:flex; flex-direction:column; justify-content:center; text-align:center; font-size:13px; color:#93c5fd; line-height:1.7 }}
+.whypivot b {{ font-size:15px; color:#e5e7eb }} .whypivot span {{ font-size:11px; color:#6b7280 }}
 .krow {{ display:grid; grid-template-columns:190px 30px 260px 1fr; gap:8px; align-items:center; padding:8px 12px; background:#131a2a; border-radius:6px; margin-bottom:5px }}
 .karr {{ color:#34d399; font-weight:bold; text-align:center }}
 .ksim {{ color:#93c5fd; font-size:13px; font-weight:bold }}
@@ -172,6 +181,25 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 
 <h1>인플루언서 시딩 엔진 <span class="badge">셀프테스트 18/18 PASS</span><span class="badge syn">매출 데이터 [SYNTHETIC]</span></h1>
 <div class="meta">판단은 근거 있는 규칙이, 증명은 전용코드가, 개선은 루프가 — 감이 아니라 시스템이.</div>
+
+<h2>문제의 구조 — "ABC 중 뭐가 팔았나"는 왜 아무도 못 풀었고, 왜 여기서는 풀리나</h2>
+<div class="whygrid">
+  <div class="whycard bad">
+    <div class="whyhead">전역에서 불가능한 이유 (구글·메타도 못 푼)</div>
+    <div class="whyitem">① <b>반사실 관측 불가</b> — "안 봤다면"의 세계는 재생되지 않는다</div>
+    <div class="whyitem">② <b>조각난 여정</b> — 틱톡→유튜브→네이버→오프라인, 전체를 보는 자가 없고 각자 공로 주장(합계 200%). 추적의 다리는 규제(ATT·쿠키 폐지)로 붕괴 중</div>
+    <div class="whyitem">③ <b>측정자의 이해충돌</b> — 광고 효과를 재는 자가 광고를 파는 자</div>
+  </div>
+  <div class="whypivot">그래서<br><b>관측하지 않는다.<br>실험을 설계한다.</b><br><span>채널별 전용코드<br>= 채널 단위 실험</span></div>
+  <div class="whycard good">
+    <div class="whyhead">메디테라피 국소에서 가능한 이유</div>
+    <div class="whyitem">① <b>자사몰 소유</b> — 구매 데이터가 자기 것</div>
+    <div class="whyitem">② <b>제품 수십 개</b> — 깨끗한 제품별 실험 가능 (수백만 SKU 대기업 불가)</div>
+    <div class="whyitem">③ <b>이해충돌 없음</b> — 자기 돈으로 재니 정답을 원하는 유일한 측정자</div>
+    <div class="whyitem">④ <b>시딩 = 태생이 실험</b> — 인플루언서별 코드 부착이 자연스러움</div>
+  </div>
+</div>
+<div class="hint" style="margin-bottom:20px">전역 관측은 불가능해도, 자기 세계를 소유한 D2C의 국소에서는 부분해가 설계 가능하다 — "100% 해결 안 돼도 일부 접목하면 엄청난 부가가치" (대표 인터뷰)</div>
 
 <h2>⓪ 온톨로지 — 시딩의 세계관 (콘텐츠가 매출이 되기까지)</h2>
 {ontology}
