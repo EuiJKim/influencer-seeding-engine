@@ -40,7 +40,7 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 .whyitem { font-size:13px; color:#444; line-height:1.6; margin-bottom:8px }
 .whypivot { display:flex; flex-direction:column; justify-content:center; text-align:center;
   font-size:13px; color:var(--muted); line-height:1.7 }
-.whypivot b { font-size:15px; color:var(--accent) } .whypivot span { font-size:11px; color:var(--faint) }
+.whypivot b { font-size:15px; color:var(--ink) } .whypivot span { font-size:11px; color:var(--faint) }
 
 /* 온톨로지 */
 .ontobox { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px 8px }
@@ -52,8 +52,8 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 .ltag { display:inline-block; font-size:10.5px; font-weight:600; border-radius:4px; padding:2px 9px; margin-right:10px; vertical-align:1px }
 .layer.core { border:2px solid var(--accent); background:var(--accent-light) } .core .ltag { background:var(--accent); color:#fff }
 .layer.view { border:1px solid var(--line) } .view .ltag { background:#efefec; color:var(--muted) }
-.layer.output { border:1px solid #bfe6d4; background:var(--green-light) } .output .ltag { background:var(--green); color:#fff }
-.layer.roadmap { border:1px dashed #b7a6e8; background:#f7f4fd } .roadmap .ltag { background:#6d28d9; color:#fff }
+.layer.output { border:1px solid var(--line) } .output .ltag { background:#efefec; color:var(--muted) }
+.layer.roadmap { border:1px dashed #c9c9c4 } .roadmap .ltag { background:#efefec; color:var(--muted) }
 
 /* 랭킹 */
 .rows { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:8px 20px }
@@ -89,8 +89,8 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 /* 닮은꼴 */
 .krow { display:grid; grid-template-columns:200px 30px 280px 1fr; gap:10px; align-items:center;
   padding:12px 18px 8px; background:var(--card); border:1px solid var(--line); border-radius:10px; margin-bottom:6px }
-.karr { color:var(--accent); font-weight:700; text-align:center }
-.ksim { color:var(--accent); font-size:13.5px; font-weight:700 }
+.karr { color:var(--faint); font-weight:700; text-align:center }
+.ksim { color:var(--ink); font-size:13.5px; font-weight:700 }
 .krow .why { font-size:11.5px; color:var(--faint); padding-bottom:4px }
 
 .foot { margin-top:44px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line);
@@ -120,78 +120,84 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 <div class="hint">전역 관측은 불가능해도, 자기 세계를 소유한 D2C의 국소에서는 부분해가 설계 가능하다 — "100% 해결 안 돼도 일부 접목하면 엄청난 부가가치" (대표 인터뷰)</div>
 
 <h2>Ontology<span class="big">⓪ 소비자의 세계 — 마음이 움직여 구매가 되기까지</span></h2>
-<div class="ontobox"><svg viewBox="0 0 1060 430" width="100%" style="max-width:1060px" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+<div class="hint">세계의 중심은 소비자의 마음 상태. 콘텐츠·후기·코드는 상태를 바꾸는 "자극" — 관측 표기: <span style="color:var(--green)">● 확실</span> · ◐ 간접 추정 · <span style="color:var(--red)">✗ 관측 불가</span>(추정하지 않고 불가로 명시)</div>
+<div class="ontobox"><svg viewBox="0 0 1060 450" width="100%" style="max-width:1060px" xmlns="http://www.w3.org/2000/svg" font-family="'Apple SD Gothic Neo','Malgun Gothic',sans-serif">
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9aa1ad"/></marker>
 <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0d9668"/></marker>
 <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1E41C0"/></marker></defs>
-<text x="20" y="24" fill="#666" font-size="11">세계의 중심 = 소비자의 마음 상태. 콘텐츠·후기·코드는 상태를 바꾸는 "자극"이고, 시딩 엔진은 자극 선택기다.</text>
-<text x="1040" y="24" fill="#666" font-size="11" text-anchor="end">관측: ● 확실  ◐ 간접 추정  ✗ 관측 불가(정직 표기)</text>
 
-<!-- 자극층 (위) -->
-<rect x="40" y="42" width="250" height="62" rx="10" fill="#fff" stroke="#c7cffe" stroke-width="1.5"/>
+<!-- 전파 → 자극 회귀 레인 (상단 전용 통로: 박스 위를 지나지 않음) -->
+<path d="M 980 190 L 980 28 Q 980 18 970 18 L 535 18 Q 525 18 525 28 L 525 36" fill="none" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+<text x="752" y="13" fill="#8a8f99" font-size="10.5" text-anchor="middle">전파는 후기·입소문이 되어 자극②로 되돌아온다 (세계의 자체 루프)</text>
+
+<!-- 자극층 -->
+<rect x="40" y="42" width="250" height="62" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
 <text x="165" y="62" fill="#111" font-size="12" font-weight="bold" text-anchor="middle">자극① 인플루언서 콘텐츠</text>
 <text x="165" y="79" fill="#666" font-size="10.5" text-anchor="middle">릴스·쇼츠·리뷰 (인지 채널 60%*)</text>
-<text x="165" y="94" fill="#1E41C0" font-size="10.5" text-anchor="middle">← 시딩이 주입하는 자극</text>
-<rect x="390" y="42" width="270" height="62" rx="10" fill="#fff" stroke="#c7cffe" stroke-width="1.5"/>
+<text x="165" y="94" fill="#666" font-size="10.5" text-anchor="middle">시딩이 주입하는 자극</text>
+<rect x="390" y="42" width="270" height="62" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
 <text x="525" y="62" fill="#111" font-size="12" font-weight="bold" text-anchor="middle">자극② 검증 콘텐츠</text>
 <text x="525" y="79" fill="#666" font-size="10.5" text-anchor="middle">내돈내산 후기 · 네이버 블로그 · 올리브영 리뷰</text>
 <text x="525" y="94" fill="#666" font-size="10.5" text-anchor="middle">(탐색 1위 올리브영 34.5%*)</text>
-<rect x="760" y="42" width="190" height="62" rx="10" fill="#fff" stroke="#c7cffe" stroke-width="1.5"/>
+<rect x="760" y="42" width="190" height="62" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
 <text x="855" y="62" fill="#111" font-size="12" font-weight="bold" text-anchor="middle">자극③ 전용코드</text>
 <text x="855" y="79" fill="#666" font-size="10.5" text-anchor="middle">할인·프로모션</text>
-<text x="855" y="94" fill="#666" font-size="10.5" text-anchor="middle">= 관측 가능한 표식</text>
+<text x="855" y="94" fill="#666" font-size="10.5" text-anchor="middle">관측 가능한 표식</text>
 
-<!-- 소비자 상태 사슬 (중앙) -->
-<text x="20" y="168" fill="#1E41C0" font-size="12" font-weight="bold">소비자</text>
-<rect x="20" y="180" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="90" y="211" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">모름</text>
-<rect x="200" y="180" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="270" y="211" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
-<rect x="380" y="180" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="450" y="211" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">관심</text>
-<rect x="560" y="180" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="630" y="211" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">신뢰</text>
-<rect x="740" y="180" width="140" height="52" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="2"/>
-<text x="810" y="211" fill="#065f46" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
-<rect x="920" y="180" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="980" y="211" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">전파</text>
-<line x1="160" y1="206" x2="198" y2="206" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="340" y1="206" x2="378" y2="206" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="520" y1="206" x2="558" y2="206" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="700" y1="206" x2="738" y2="206" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="880" y1="206" x2="918" y2="206" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<!-- 자극 → 상태전이 (구조 화살표: 회색) -->
+<line x1="165" y1="106" x2="179" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<line x1="525" y1="106" x2="539" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<line x1="855" y1="106" x2="723" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
 
-<!-- 자극 → 상태전이 -->
-<line x1="165" y1="104" x2="180" y2="178" stroke="#1E41C0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
-<line x1="525" y1="104" x2="540" y2="178" stroke="#1E41C0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
-<line x1="855" y1="104" x2="722" y2="178" stroke="#1E41C0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
+<!-- 소비자 상태 사슬 -->
+<text x="20" y="180" fill="#111" font-size="12" font-weight="bold">소비자</text>
+<rect x="20" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="90" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">모름</text>
+<rect x="200" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="270" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
+<rect x="380" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="450" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">관심</text>
+<rect x="560" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="630" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">신뢰</text>
+<rect x="740" y="190" width="140" height="52" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="2"/>
+<text x="810" y="221" fill="#065f46" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
+<rect x="920" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="980" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">전파</text>
+<line x1="160" y1="216" x2="198" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="340" y1="216" x2="378" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="520" y1="216" x2="558" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="700" y1="216" x2="738" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="880" y1="216" x2="918" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
 
-<!-- 전이별 관측 가능성 -->
-<text x="180" y="252" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 조회·좋아요로 간접 추정</text>
-<text x="450" y="252" fill="#b91c1c" font-size="10.5" text-anchor="middle">✗ 친구의 말·오프라인 — 관측 불가</text>
-<text x="719" y="252" fill="#0d9668" font-size="10.5" text-anchor="middle">● 코드 구매 = 확실 / ◐ 시간창 = 추정</text>
-<text x="980" y="252" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 후기 수·해시태그</text>
+<!-- 전이별 관측 가능성 (강조는 색이 아니라 기호로) -->
+<text x="90" y="262" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 조회·좋아요 간접 추정</text>
+<text x="450" y="262" fill="#b91c1c" font-size="10.5" text-anchor="middle">✗ 친구의 말·오프라인 — 관측 불가</text>
+<text x="660" y="262" fill="#0d9668" font-size="10.5" text-anchor="middle">● 코드 구매 = 확실 · ◐ 시간창 = 추정</text>
+<text x="980" y="262" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 후기 수·해시태그</text>
 
-<!-- 전파 → 자극 (세계 자체의 루프) -->
-<path d="M 980 180 C 980 120 900 30 660 33" fill="none" stroke="#1E41C0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
-<text x="985" y="145" fill="#1E41C0" font-size="10.5">전파가 새 자극이 된다 (후기·입소문)</text>
+<!-- 우리 시스템 -->
+<rect x="40" y="310" width="280" height="70" rx="10" fill="#eef1ff" stroke="#1E41C0" stroke-width="1.5"/>
+<text x="180" y="333" fill="#111" font-size="12.5" font-weight="bold" text-anchor="middle">시딩 엔진 = 자극 선택기</text>
+<text x="180" y="351" fill="#666" font-size="10.5" text-anchor="middle">R1~R4: 어떤 자극(누구·어떤 콘텐츠)을</text>
+<text x="180" y="366" fill="#666" font-size="10.5" text-anchor="middle">세계에 주입할지 근거로 결정</text>
+<rect x="700" y="310" width="300" height="70" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="1.5"/>
+<text x="850" y="333" fill="#111" font-size="12.5" font-weight="bold" text-anchor="middle">인과 장부 = 상태 변화 기록계</text>
+<text x="850" y="351" fill="#666" font-size="10.5" text-anchor="middle">확실(코드)과 추정(시간창)을 분리 기록</text>
+<text x="850" y="366" fill="#666" font-size="10.5" text-anchor="middle">append-only — 담당자가 바뀌어도 히스토리 보존</text>
 
-<!-- 우리 시스템 (아래) -->
-<rect x="40" y="300" width="280" height="70" rx="10" fill="#eef1ff" stroke="#1E41C0" stroke-width="1.5"/>
-<text x="180" y="323" fill="#111" font-size="12.5" font-weight="bold" text-anchor="middle">시딩 엔진 = 자극 선택기</text>
-<text x="180" y="341" fill="#555" font-size="10.5" text-anchor="middle">R1~R4: 어떤 자극(누구·어떤 콘텐츠)을</text>
-<text x="180" y="356" fill="#555" font-size="10.5" text-anchor="middle">세계에 주입할지 근거로 결정</text>
-<rect x="700" y="300" width="300" height="70" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="1.5"/>
-<text x="850" y="323" fill="#111" font-size="12.5" font-weight="bold" text-anchor="middle">인과 장부 = 상태 변화 기록계</text>
-<text x="850" y="341" fill="#065f46" font-size="10.5" text-anchor="middle">● 확실(코드)과 ◐ 추정(시간창)을 분리 기록</text>
-<text x="850" y="356" fill="#555" font-size="10.5" text-anchor="middle">append-only — 담당자가 바뀌어도 히스토리 보존</text>
-<line x1="180" y1="298" x2="165" y2="108" stroke="#1E41C0" stroke-width="1.8" marker-end="url(#arb)"/>
-<text x="196" y="285" fill="#1E41C0" font-size="10.5">자극 주입(시딩)</text>
-<line x1="810" y1="234" x2="843" y2="298" stroke="#0d9668" stroke-width="1.5" marker-end="url(#arg)"/>
-<path d="M 698 340 C 480 340 360 340 322 340" fill="none" stroke="#0d9668" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arg)"/>
-<text x="430" y="332" fill="#0d9668" font-size="11.5" font-weight="bold">시스템 루프: 실측 → 점수 갱신 → 닮은꼴 → 다음 자극</text>
+<!-- 주입 경로 (좌측 전용 통로: 박스를 넘지 않음) -->
+<path d="M 100 310 L 100 288 Q 100 280 92 280 L 20 280 Q 12 280 12 272 L 12 83 Q 12 73 22 73 L 36 73" fill="none" stroke="#1E41C0" stroke-width="1.6" marker-end="url(#arb)"/>
+<text x="24" y="164" fill="#1E41C0" font-size="10.5">자극</text>
+<text x="24" y="178" fill="#1E41C0" font-size="10.5">주입</text>
 
-<text x="20" y="415" fill="#8a8f99" font-size="10">* 출처: 픽플리 2026-1Q 소비 여정 조사 (docs/02-platform-research.md) · 관측 불가 구간(✗)은 추정하지 않고 불가로 명시한다</text>
+<!-- 구매 → 장부 -->
+<line x1="845" y1="244" x2="845" y2="308" stroke="#0d9668" stroke-width="1.5" marker-end="url(#arg)"/>
+
+<!-- 시스템 루프 -->
+<path d="M 698 345 L 324 345" fill="none" stroke="#0d9668" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arg)"/>
+<text x="510" y="334" fill="#0d9668" font-size="11" font-weight="bold" text-anchor="middle">시스템 루프: 실측 → 점수 갱신 → 닮은꼴 → 다음 자극</text>
+
+<text x="20" y="435" fill="#8a8f99" font-size="10">* 출처: 픽플리 2026-1Q 소비 여정 조사 (docs/02-platform-research.md)</text>
 </svg></div>
 
 <h2>Matrix Layers<span class="big">매트릭스의 구조 — 하나의 세계, 네 개의 층</span></h2>
