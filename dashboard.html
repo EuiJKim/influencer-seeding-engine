@@ -109,31 +109,32 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 <h1>인플루언서 시딩 엔진 <span class="badge">셀프테스트 18/18 PASS</span><span class="badge syn">매출 데이터 [SYNTHETIC]</span></h1>
 <div class="meta">판단은 근거 있는 규칙이, 증명은 전용코드가, 개선은 루프가 — 감이 아니라 시스템이.</div>
 
-<h2>Problem<span class="big">문제 — 지수는 토요일에 선크림을 샀다. 누구 덕분인지 아는 회사는 지구에 없다</span></h2>
+<h2>Problem<span class="big">문제 구조 — 멀티터치 어트리뷰션은 왜 미해결이고, 어디서 식별 가능해지는가</span></h2>
+<div class="hint">관측 주체별 단절: 한 소비자의 구매 여정을 처음부터 끝까지 보는 주체가 존재하지 않는다</div>
 <div class="journey">
-  <div class="jcard"><div class="jday">월</div><div class="jact">틱톡에서 광고 <b>A</b>를 봄</div><div class="jwho">틱톡만 앎 · 구매는 못 봄</div></div>
-  <div class="jcard"><div class="jday">수</div><div class="jact">유튜브에서 리뷰 <b>B</b>를 봄</div><div class="jwho">유튜브만 앎 · 구매는 못 봄</div></div>
-  <div class="jcard gap"><div class="jday">목</div><div class="jact">친구: "그거 나 써봤는데 좋아"</div><div class="jwho">✗ 어디에도 기록 없음 — 사실 이게 결정타</div></div>
-  <div class="jcard"><div class="jday">금</div><div class="jact">네이버에서 후기 <b>C</b>를 읽음</div><div class="jwho">네이버만 앎 · 구매는 못 봄</div></div>
-  <div class="jcard buy"><div class="jday">토</div><div class="jact">올리브영에서 <b>구매</b></div><div class="jwho">올리브영만 앎 · 광고는 못 봄</div></div>
+  <div class="jcard"><div class="jday">D-5 · 인지</div><div class="jact">틱톡 광고 <b>A</b> 노출</div><div class="jwho">관측 주체: 틱톡 — 구매 데이터 없음</div></div>
+  <div class="jcard"><div class="jday">D-3 · 탐색</div><div class="jact">유튜브 리뷰 <b>B</b> 시청</div><div class="jwho">관측 주체: 유튜브 — 구매 데이터 없음</div></div>
+  <div class="jcard gap"><div class="jday">D-2 · 구전</div><div class="jact">오프라인 구전 (지인 추천)</div><div class="jwho">✗ 기록 부재 구간 — 실질 결정 요인일 수 있음</div></div>
+  <div class="jcard"><div class="jday">D-1 · 검증</div><div class="jact">네이버 블로그 후기 <b>C</b> 열람</div><div class="jwho">관측 주체: 네이버 — 구매 데이터 없음</div></div>
+  <div class="jcard buy"><div class="jday">D-0 · 전환</div><div class="jact">올리브영 오프라인 <b>구매</b></div><div class="jwho">관측 주체: 올리브영 — 노출 이력 없음</div></div>
 </div>
 <div class="whygrid">
   <div class="whycard bad">
-    <div class="whyhead">그래서 벌어지는 일 (아무도 못 푸는 이유)</div>
-    <div class="whyitem">① 틱톡·유튜브·네이버가 <b>전부 "내 덕에 팔렸다"고 주장</b> — 셋의 주장을 더하면 실제 매출의 2~3배가 된다</div>
-    <div class="whyitem">② 조각을 이어붙이려던 개인 추적은 <b>법으로 막히는 중</b> (애플 앱 추적 차단으로 메타가 연 13조 원 손실 발표)</div>
-    <div class="whyitem">③ 그나마 성적표를 매기는 회사가 <b>광고를 파는 회사</b> — 자기 시험지 자기 채점</div>
+    <div class="whyhead">전역 어트리뷰션이 불가능한 3중 구조</div>
+    <div class="whyitem">① <b>반사실 관측 불가</b> — 동일 소비자의 "비노출 세계"는 관측 대상이 아니다 (인과추론의 근본 문제)</div>
+    <div class="whyitem">② <b>데이터 파편화</b> — 플랫폼 간 비공유로 각 채널이 기여를 중복 계상(합산 시 실매출의 2~3배). 크로스사이트 추적은 ATT·쿠키 폐지로 차단 진행</div>
+    <div class="whyitem">③ <b>측정 유인의 충돌</b> — 효과 측정 주체와 광고 판매 주체가 동일 (제3자 검증 부재)</div>
   </div>
-  <div class="whypivot">그래서 우리는<br><b>지나간 일을 맞히지 않고,<br>실험을 심는다</b><br><span>인플루언서마다 다른 할인코드<br>= 색깔 스티커. 구매가 스스로<br>출처를 말하게 만든다</span></div>
+  <div class="whypivot">접근 전환<br><b>관측이 아니라<br>실험 설계</b><br><span>인플루언서별 전용코드로<br>인과가 식별 가능하도록<br>구조를 먼저 만든다</span></div>
   <div class="whycard good">
-    <div class="whyhead">메디테라피 가게 안에서는 되는 이유 (근거 표기)</div>
-    <div class="whyitem">① <b>계산대가 자기 것</b> — 자사몰이라 코드가 찍히는 순간을 직접 본다 <span class="src">확인: meditherapy.co.kr 자사몰 운영</span></div>
-    <div class="whyitem">② <b>제품 종류가 한눈에 들어옴</b> — 실험이 섞이지 않는다 <span class="src">수집으로 확인: 마스크·세럼·크림·디바이스 라인 (docs/03)</span></div>
-    <div class="whyitem">③ <b>자기 돈으로 자기 효과를 잰다</b> — 부풀릴 이유가 없다 <span class="src">구조상 논증 (측정자=지출자)</span></div>
-    <div class="whyitem">④ <b>시딩은 원래 한 명씩 보내는 일</b> — 코드 붙이기가 자연스럽다 <span class="src">확인: 올리브영도 코드형 제도 운영 (docs/02)</span></div>
+    <div class="whyhead">1st-party 환경(메디테라피)에서 식별 가능한 이유</div>
+    <div class="whyitem">① <b>자사몰 보유</b> — 구매 데이터 완전 소유, 코드 리딤 시점 직접 관측 <span class="src">확인: meditherapy.co.kr 자사몰 운영</span></div>
+    <div class="whyitem">② <b>제한된 SKU</b> — 제품 단위의 오염 없는 실험 설계 가능 <span class="src">수집 확인: 마스크·세럼·크림·디바이스 라인 (docs/03)</span></div>
+    <div class="whyitem">③ <b>측정 유인 정렬</b> — 지출 주체 = 측정 주체, 과대계상 유인 부재 <span class="src">구조상 논증</span></div>
+    <div class="whyitem">④ <b>시딩의 실험 적합성</b> — 개체 단위 코드·링크 부착이 업계 표준 관행 <span class="src">확인: 올리브영 어필리에이트 제도 (docs/02)</span></div>
   </div>
 </div>
-<div class="hint">정리: 모두의 여정을 다 보는 것(전역)은 불가능하지만, 자기 가게 안(국소)에서는 코드라는 실험 장치로 부분 정답을 만들 수 있다 — "100% 해결 안 돼도 일부 접목하면 엄청난 부가가치" (대표 인터뷰)</div>
+<div class="hint">전역 관측은 구조적으로 불가능하나, 1st-party 도메인에서는 실험 설계로 부분 식별이 가능하다 — "100% 해결이 안 돼도 일부 접목하면 엄청난 부가가치" (대표 인터뷰)</div>
 
 <h2>Ontology<span class="big">⓪ 소비자의 세계 — 마음이 움직여 구매가 되기까지</span></h2>
 <div class="hint">세계의 중심은 소비자의 마음 상태. 콘텐츠·후기·코드는 상태를 바꾸는 "자극" — 관측 표기: <span style="color:var(--green)">● 확실</span> · ◐ 간접 추정 · <span style="color:var(--red)">✗ 관측 불가</span>(추정하지 않고 불가로 명시)</div>
@@ -216,13 +217,13 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 <text x="20" y="435" fill="#8a8f99" font-size="10">* 출처: 픽플리 2026-1Q 소비 여정 조사 (docs/02-platform-research.md)</text>
 </svg></div>
 
-<h2>Matrix Layers<span class="big">매트릭스의 구조 — 게임판 하나에 층이 네 개</span></h2>
-<div class="hint">실측 한 건이 층을 타고 올라간다: 보아따 코드로 47건 구매 → <b>규칙판</b>이 "이런 채널은 잘 판다"로 확률을 고침 → <b>공략집</b>에 "1만 이하·내돈내산형이 먹힌다" 한 줄 추가 → <b>사장님 화면</b> 순위 갱신 → 다음 판에 닮은꼴 투입</div>
+<h2>Matrix Layers<span class="big">매트릭스의 구조 — 하나의 세계, 네 개의 층</span></h2>
+<div class="hint">네 세계관은 경쟁이 아니라 층위다. 실측 1건의 전파 경로: 코드 리딤 47건 → 물리 법칙 층의 전이 확률 보정 → 수요 레시피에 패턴 축적 → 경영 뷰 순위 갱신 → 차기 배치에 닮은꼴 반영</div>
 <div class="stack">
-  <div class="layer roadmap"><span class="ltag">다음 확장팩</span><b>전파 연결망</b> — 입소문이 퍼지는 친구·팔로워 연결망까지 게임판에 넣는 다음 버전. 전파 데이터가 잡히기 시작하면 연다</div>
-  <div class="layer output"><span class="ltag">공략집</span><b>수요 레시피</b> — 판을 돌 때마다 한 줄씩 쌓이는 노트: "어떤 콘텐츠를 × 누구를 통해 × 언제 보내면 → 얼마가 팔리더라"</div>
-  <div class="layer view"><span class="ltag">사장님 화면</span><b>퍼널 보고</b> — 같은 게임판을 위에서 내려다본 요약. 아래 ①~④ 섹션이 바로 이 화면이다</div>
-  <div class="layer core"><span class="ltag">게임 규칙판 ← 오늘 실제로 만든 것</span><b>소비자 상태 세계</b> — "마음은 모름→인지→관심→신뢰→구매→전파 순서로만 움직인다"는 이 세계의 규칙. 시뮬레이터가 이 규칙으로 다음 판을 미리 굴려보고, 실측이 들어오면 규칙의 확률을 고친다</div>
+  <div class="layer roadmap"><span class="ltag">다음 버전</span><b>전파 네트워크</b> — 전파 상태가 데이터로 관측되기 시작하면 여는 층 (팔로워·구전 그래프 확산 모델)</div>
+  <div class="layer output"><span class="ltag">루프의 산출물</span><b>수요 레시피</b> — 루프가 학습하는 패턴의 축적: 콘텐츠 유형 × 채널 × 타이밍 → 수요</div>
+  <div class="layer view"><span class="ltag">경영 뷰</span><b>퍼널 보고</b> — 같은 세계를 경영 관점으로 투사한 화면 (아래 ①~④ 섹션이 이 뷰)</div>
+  <div class="layer core"><span class="ltag">물리 법칙 ← 오늘 구현</span><b>소비자 상태 세계</b> — 모름→인지→관심→신뢰→구매→전파의 상태 전이 모델. 시뮬레이터와 동일물: 전이 확률이 곧 파라미터, 실측이 곧 보정</div>
 </div>
 
 <h2>Decision<span class="big">① 판단 — 누구에게 보낼 것인가 <span style="color:var(--faint);font-weight:400;font-size:14px">(실제 유튜브 공개 데이터 15개 채널)</span></span></h2>
