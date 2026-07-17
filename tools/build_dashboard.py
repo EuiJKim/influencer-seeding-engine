@@ -73,42 +73,78 @@ def loop_rows(updated):
     return "\n".join(out)
 
 
-ONTOLOGY_SVG = """<svg viewBox="0 0 1060 330" width="100%" style="max-width:1060px" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic,sans-serif">
+ONTOLOGY_SVG = """<svg viewBox="0 0 1060 430" width="100%" style="max-width:1060px" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic,sans-serif">
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
-<marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker></defs>
-<text x="1040" y="24" fill="#9ca3af" font-size="11" text-anchor="end">● 확정(수집됨)  ◐ 추정(간접신호)  ○ 당일보강</text>
-<rect x="20" y="55" width="180" height="80" rx="8" fill="#151a26" stroke="#6366f1"/>
-<text x="110" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">인플루언서</text>
-<text x="110" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">● 구독자·반응률</text>
-<text x="110" y="112" fill="#9ca3af" font-size="11" text-anchor="middle">◐ 진정성·카테고리</text>
-<rect x="250" y="55" width="180" height="80" rx="8" fill="#151a26" stroke="#6366f1"/>
-<text x="340" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">콘텐츠</text>
-<text x="340" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">● 조회·좋아요·게시일</text>
-<text x="340" y="112" fill="#9ca3af" font-size="11" text-anchor="middle">◐ 협찬 여부(표기)</text>
-<rect x="480" y="55" width="160" height="80" rx="8" fill="#101726" stroke="#3b82f6"/>
-<text x="560" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
-<text x="560" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">인스타 릴스 · 유튜브</text>
-<text x="560" y="112" fill="#6b7280" font-size="10" text-anchor="middle">스킨케어 인지 60%*</text>
-<rect x="680" y="55" width="160" height="80" rx="8" fill="#101726" stroke="#3b82f6"/>
-<text x="760" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">검증</text>
-<text x="760" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">네이버 블로그 · 올리브영</text>
-<text x="760" y="112" fill="#6b7280" font-size="10" text-anchor="middle">탐색 1위 올리브영 34.5%*</text>
-<rect x="880" y="55" width="160" height="80" rx="8" fill="#101726" stroke="#3b82f6"/>
-<text x="960" y="76" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
-<text x="960" y="96" fill="#9ca3af" font-size="11" text-anchor="middle">자사몰 · 올리브영</text>
-<text x="960" y="112" fill="#6b7280" font-size="10" text-anchor="middle">○ 전용코드 부착 지점</text>
-<rect x="700" y="210" width="340" height="75" rx="8" fill="#0d1f14" stroke="#22c55e"/>
-<text x="870" y="232" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">전환 신호 (인과 장부)</text>
-<text x="870" y="252" fill="#a7f3d0" font-size="11" text-anchor="middle">○ 전용코드 구매 = 확실</text>
-<text x="870" y="268" fill="#fbbf24" font-size="11" text-anchor="middle">○ 48h 시간창 상승 = 추정 (절대 안 섞음)</text>
-<line x1="200" y1="95" x2="248" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="430" y1="95" x2="478" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="640" y1="95" x2="678" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="840" y1="95" x2="878" y2="95" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="960" y1="135" x2="915" y2="208" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
-<path d="M 700 250 C 350 250 110 220 110 140" fill="none" stroke="#34d399" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arg)"/>
-<text x="330" y="238" fill="#34d399" font-size="12" font-weight="bold">루프: 실측 → 점수 갱신 → 닮은꼴 발굴 → 다음 배치</text>
-<text x="480" y="320" fill="#4b5563" font-size="10">* 출처: 픽플리 2026-1Q 소비 여정 조사 (docs/02-platform-research.md)</text>
+<marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker>
+<marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#818cf8"/></marker></defs>
+<text x="20" y="24" fill="#9ca3af" font-size="11">세계의 중심 = 소비자의 마음 상태. 콘텐츠·후기·코드는 상태를 바꾸는 "자극"이고, 시딩 엔진은 자극 선택기다.</text>
+<text x="1040" y="24" fill="#9ca3af" font-size="11" text-anchor="end">관측: ● 확실  ◐ 간접 추정  ✗ 관측 불가(정직 표기)</text>
+
+<!-- 자극층 (위) -->
+<rect x="40" y="42" width="250" height="62" rx="8" fill="#151a26" stroke="#6366f1"/>
+<text x="165" y="62" fill="#e5e7eb" font-size="12" font-weight="bold" text-anchor="middle">자극① 인플루언서 콘텐츠</text>
+<text x="165" y="79" fill="#9ca3af" font-size="10.5" text-anchor="middle">릴스·쇼츠·리뷰 (인지 채널 60%*)</text>
+<text x="165" y="94" fill="#9ca3af" font-size="10.5" text-anchor="middle">← 시딩이 주입하는 자극</text>
+<rect x="390" y="42" width="270" height="62" rx="8" fill="#151a26" stroke="#6366f1"/>
+<text x="525" y="62" fill="#e5e7eb" font-size="12" font-weight="bold" text-anchor="middle">자극② 검증 콘텐츠</text>
+<text x="525" y="79" fill="#9ca3af" font-size="10.5" text-anchor="middle">내돈내산 후기 · 네이버 블로그 · 올리브영 리뷰</text>
+<text x="525" y="94" fill="#9ca3af" font-size="10.5" text-anchor="middle">(탐색 1위 올리브영 34.5%*)</text>
+<rect x="760" y="42" width="190" height="62" rx="8" fill="#151a26" stroke="#6366f1"/>
+<text x="855" y="62" fill="#e5e7eb" font-size="12" font-weight="bold" text-anchor="middle">자극③ 전용코드</text>
+<text x="855" y="79" fill="#9ca3af" font-size="10.5" text-anchor="middle">할인·프로모션</text>
+<text x="855" y="94" fill="#9ca3af" font-size="10.5" text-anchor="middle">= 관측 가능한 표식</text>
+
+<!-- 소비자 상태 사슬 (중앙) -->
+<text x="20" y="168" fill="#93c5fd" font-size="12" font-weight="bold">소비자</text>
+<rect x="20" y="180" width="140" height="52" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="90" y="211" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">모름</text>
+<rect x="200" y="180" width="140" height="52" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="270" y="211" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
+<rect x="380" y="180" width="140" height="52" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="450" y="211" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">관심</text>
+<rect x="560" y="180" width="140" height="52" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="630" y="211" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">신뢰</text>
+<rect x="740" y="180" width="140" height="52" rx="8" fill="#0d1f14" stroke="#22c55e"/>
+<text x="810" y="211" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
+<rect x="920" y="180" width="120" height="52" rx="8" fill="#101726" stroke="#3b82f6"/>
+<text x="980" y="211" fill="#e5e7eb" font-size="13" font-weight="bold" text-anchor="middle">전파</text>
+<line x1="160" y1="206" x2="198" y2="206" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="340" y1="206" x2="378" y2="206" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="520" y1="206" x2="558" y2="206" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="700" y1="206" x2="738" y2="206" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="880" y1="206" x2="918" y2="206" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar)"/>
+
+<!-- 자극 → 상태전이 -->
+<line x1="165" y1="104" x2="180" y2="178" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
+<line x1="525" y1="104" x2="540" y2="178" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
+<line x1="855" y1="104" x2="722" y2="178" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
+
+<!-- 전이별 관측 가능성 -->
+<text x="180" y="252" fill="#6b7280" font-size="10.5" text-anchor="middle">◐ 조회·좋아요로 간접 추정</text>
+<text x="450" y="252" fill="#f87171" font-size="10.5" text-anchor="middle">✗ 친구의 말·오프라인 — 관측 불가</text>
+<text x="719" y="252" fill="#a7f3d0" font-size="10.5" text-anchor="middle">● 코드 구매 = 확실 / ◐ 시간창 = 추정</text>
+<text x="980" y="252" fill="#6b7280" font-size="10.5" text-anchor="middle">◐ 후기 수·해시태그</text>
+
+<!-- 전파 → 자극 (세계 자체의 루프) -->
+<path d="M 980 180 C 980 120 900 30 660 33" fill="none" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arb)"/>
+<text x="985" y="145" fill="#818cf8" font-size="10.5">전파가 새 자극이 된다 (후기·입소문)</text>
+
+<!-- 우리 시스템 (아래) -->
+<rect x="40" y="300" width="280" height="70" rx="8" fill="#1a1633" stroke="#8b5cf6"/>
+<text x="180" y="323" fill="#e5e7eb" font-size="12.5" font-weight="bold" text-anchor="middle">시딩 엔진 = 자극 선택기</text>
+<text x="180" y="341" fill="#9ca3af" font-size="10.5" text-anchor="middle">R1~R4: 어떤 자극(누구·어떤 콘텐츠)을</text>
+<text x="180" y="356" fill="#9ca3af" font-size="10.5" text-anchor="middle">세계에 주입할지 근거로 결정</text>
+<rect x="700" y="300" width="300" height="70" rx="8" fill="#0d1f14" stroke="#22c55e"/>
+<text x="850" y="323" fill="#e5e7eb" font-size="12.5" font-weight="bold" text-anchor="middle">인과 장부 = 상태 변화 기록계</text>
+<text x="850" y="341" fill="#a7f3d0" font-size="10.5" text-anchor="middle">● 확실(코드)과 ◐ 추정(시간창)을 분리 기록</text>
+<text x="850" y="356" fill="#9ca3af" font-size="10.5" text-anchor="middle">append-only — 담당자가 바뀌어도 히스토리 보존</text>
+<line x1="180" y1="298" x2="165" y2="108" stroke="#8b5cf6" stroke-width="1.8" marker-end="url(#arb)"/>
+<text x="196" y="285" fill="#8b5cf6" font-size="10.5">자극 주입(시딩)</text>
+<line x1="810" y1="234" x2="843" y2="298" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arg)"/>
+<path d="M 698 340 C 480 340 360 340 322 340" fill="none" stroke="#34d399" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arg)"/>
+<text x="430" y="332" fill="#34d399" font-size="11.5" font-weight="bold">시스템 루프: 실측 → 점수 갱신 → 닮은꼴 → 다음 자극</text>
+
+<text x="20" y="415" fill="#4b5563" font-size="10">* 출처: 픽플리 2026-1Q 소비 여정 조사 (docs/02-platform-research.md) · 관측 불가 구간(✗)은 추정하지 않고 불가로 명시한다</text>
 </svg>"""
 
 
@@ -201,7 +237,7 @@ h2 {{ font-size:15px; color:#93c5fd; margin:26px 0 4px; letter-spacing:.5px }}
 </div>
 <div class="hint" style="margin-bottom:20px">전역 관측은 불가능해도, 자기 세계를 소유한 D2C의 국소에서는 부분해가 설계 가능하다 — "100% 해결 안 돼도 일부 접목하면 엄청난 부가가치" (대표 인터뷰)</div>
 
-<h2>⓪ 온톨로지 — 시딩의 세계관 (콘텐츠가 매출이 되기까지)</h2>
+<h2>⓪ 온톨로지 — 소비자의 세계 (마음이 움직여 구매가 되기까지)</h2>
 {ontology}
 
 <h2>① 판단 — 누구에게 보낼 것인가 <span style="color:#6b7280;font-weight:normal">(실제 유튜브 공개 데이터 {n_channels}개 채널)</span></h2>
