@@ -162,8 +162,10 @@ def selftest():
          u1[0]["channel"] != b1[0]["channel"]),
         ("합성 라벨: 판매 로그에 kind 라벨 보존(감사 가능)",
          all("kind" in s for s in s1)),
-        ("배치 구성: 활용 4 + 탐색 1 (탐색 = 정보 가치 예산)",
-         [b["role"] for b in b1].count("활용") == 4 and [b["role"] for b in b1].count("탐색") == 1),
+        ("배치 구성: 활용 4 + 탐색 1 (탐색 = 정보 가치 예산) — 합성 풀 10개로 순수 검증",
+         (lambda br: [r[1] for r in [(None, x) for x in br[1]]].count("활용") == 4 and br[1].count("탐색") == 1)(
+             select_batch_rows([{"channel": f"C{i}", "total": str(90 - i),
+                                 "engaged_abs": str(10000 - i * 1000)} for i in range(10)]))),
     ]
     passed = 0
     for name, ok in checks:

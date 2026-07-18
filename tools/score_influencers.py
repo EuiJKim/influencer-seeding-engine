@@ -14,7 +14,7 @@ import json
 import sys
 
 RULEPACK = "data/seeding-rulepack.json"
-SRC = "data/youtube-enriched.csv"
+SRC = "data/youtube-enriched-candidates.csv"  # 기본 = 카테고리 검색 후보 풀 (시딩 후보). 브랜드 언급 풀은 --src로
 OUT = "data/influencer-scores.csv"
 
 
