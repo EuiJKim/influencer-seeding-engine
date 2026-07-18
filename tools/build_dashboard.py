@@ -80,6 +80,33 @@ def loop_rows(updated, redeem_map=None):
     return "\n".join(out)
 
 
+def competitor_rows():
+    try:
+        rows = read("competitor-landscape")
+    except FileNotFoundError:
+        return '<div class="hint">data/competitor-landscape.csv 없음 — competitor_analysis.py 먼저 실행</div>'
+    tag_cls = {"경쟁 검증": "cv", "협찬 과다": "co", "화이트스페이스": "cw", "경쟁사 검증·미시딩": "cn"}
+    pool = [r for r in rows if r["type"] == "풀" and int(r["brand_count"] or 0) > 0]
+    white = sum(1 for r in rows if r["type"] == "풀" and r["tag"] == "화이트스페이스")
+    new = [r for r in rows if r["type"] == "신규후보"]
+    out = [f'<div class="hint">우리 풀 20채널 중 화이트스페이스(경쟁 무접촉) {white}개 — 아래는 경쟁 접촉 채널과 신규 후보</div>']
+    for r in pool:
+        out.append(f'''<div class="crow">
+  <div class="name">{e(r["channel"])}<span class="sub">점수 {e(r["score"])}</span></div>
+  <div class="ctag {tag_cls.get(r["tag"], "")}">{e(r["tag"])}</div>
+  <div class="cbrands">← {e(r["brands"])}</div>
+</div>''')
+    out.append('<div class="hint" style="margin-top:14px">경쟁사는 검증했는데 우리 풀에 없던 채널 (신규 후보 — 단, 브랜드 공식·언론 채널은 수동 제외 필요)</div>')
+    for r in new:
+        views = f'{int(r["views"]):,}' if r["views"] else ""
+        out.append(f'''<div class="crow">
+  <div class="name">{e(r["channel"])}<span class="sub">대표 조회 {views}</span></div>
+  <div class="ctag cn">{e(r["tag"])}</div>
+  <div class="cbrands">← {e(r["brands"])}</div>
+</div>''')
+    return "\n".join(out)
+
+
 def lookalike_rows():
     try:
         rows = read("lookalikes")
@@ -293,6 +320,14 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
 .ksim {{ color:var(--ink); font-size:13.5px; font-weight:700 }}
 .krow .why {{ font-size:11.5px; color:var(--faint); padding-bottom:4px }}
 
+/* 경쟁 지형 */
+.crow {{ display:grid; grid-template-columns:280px 130px 1fr; gap:12px; align-items:center;
+  padding:10px 18px; background:var(--card); border:1px solid var(--line); border-radius:10px; margin-bottom:5px }}
+.ctag {{ font-size:11.5px; font-weight:600; border-radius:5px; padding:3px 10px; text-align:center; white-space:nowrap }}
+.ctag.cv {{ background:var(--green-light); color:var(--green) }}
+.ctag.co {{ background:var(--red-light); color:var(--red) }}
+.ctag.cn {{ background:var(--accent-light); color:var(--accent) }}
+.cbrands {{ font-size:12px; color:var(--muted) }}
 .foot {{ margin-top:44px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line);
   padding-top:16px; line-height:1.9 }}
 </style></head><body><div class="wrap">
@@ -361,7 +396,10 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
 <div class="hint">실측 검증된 채널과 규칙 프로필(R1~R4)이 가장 가까운 미시딩 채널 — 임베딩·추측 없이 규칙 점수로만</div>
 {lookalikes}
 
-<h2>Measurement Boundary<span class="big">⑤ 측정의 경계 — 무엇이 보이고, 무엇이 안 보이나</span></h2>
+<h2>Competitive Landscape<span class="big">⑤ 경쟁 지형 — 소비자의 세계에는 우리 자극만 있는 게 아니다 <span style="color:var(--faint);font-weight:400;font-size:14px">(심사 피드백 반영: 경쟁 4사 시딩 흔적 80건 실수집)</span></span></h2>
+{competitors}
+
+<h2>Measurement Boundary<span class="big">⑥ 측정의 경계 — 무엇이 보이고, 무엇이 안 보이나</span></h2>
 <div class="whygrid" style="grid-template-columns:1fr 1fr 1fr">
   <div class="whycard good">
     <div class="whyhead">● 100% 정확히 보임</div>
@@ -405,7 +443,7 @@ def main():
     doc = PAGE.format(
         n_channels=len(scores), sens_common=sens,
         c1=R_COLORS["R1"], c2=R_COLORS["R2"], c3=R_COLORS["R3"], c4=R_COLORS["R4"],
-        ontology=ONTOLOGY_SVG, lookalikes=lookalike_rows(),
+        ontology=ONTOLOGY_SVG, lookalikes=lookalike_rows(), competitors=competitor_rows(),
         scores=score_rows(scores), ledger=ledger_rows(ledger),
         loop=loop_rows(updated, redeem_map))
     with open(OUT, "w", encoding="utf-8") as fh:
