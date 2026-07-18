@@ -37,8 +37,8 @@ def main():
     run(["tools/simulate_loop.py", "selftest"])
     run(["tools/find_lookalikes.py", "selftest"])
 
-    say("1. 판단 — 누구에게 보낼 것인가 (실제 유튜브 데이터 15개 채널, 규칙 R1~R4)")
-    print("데이터: 메디테라피 언급 영상 실수집분 (data/youtube-enriched.csv)")
+    say("1. 판단 — 누구에게 보낼 것인가 (카테고리 검색 후보 풀 20개 채널, 규칙 R1~R4)")
+    print("데이터: 유튜브 공개 지표 실수집 (data/youtube-enriched-candidates.csv) · 브랜드 언급 풀은 docs/03 참고")
     run(["tools/score_influencers.py"])
 
     say("2. 증명과 루프 — 시딩→매출→인과 장부→점수 갱신 ([SYNTHETIC] 합성 매출)")
