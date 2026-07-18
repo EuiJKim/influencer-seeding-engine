@@ -73,8 +73,14 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 .rank { color:var(--faint); font-size:13px; text-align:right }
 .name { font-size:14px; font-weight:600 } .sub { color:var(--faint); font-size:11.5px; margin-left:8px; font-weight:400 }
 .tag.est { background:#fdf6ec; color:var(--amber); font-size:10.5px; border:1px solid #ecd9b8; border-radius:4px; padding:1px 6px; margin-left:6px }
-.bar { display:flex; height:14px; background:#efefec; border-radius:4px; overflow:hidden }
-.seg { height:100% }
+.bar { display:flex; height:14px; background:#efefec; border-radius:4px }
+.seg { height:100%; position:relative }
+.seg:first-child { border-radius:4px 0 0 4px } .seg:last-child { border-radius:0 4px 4px 0 }
+.seg:hover { filter:brightness(1.15); outline:1px solid #111 }
+.seg:hover::after { content:attr(data-tip); position:absolute; bottom:22px; left:0;
+  background:#111; color:#fff; font-size:12px; font-weight:400; padding:6px 12px;
+  border-radius:6px; white-space:nowrap; z-index:9; box-shadow:0 4px 12px rgba(0,0,0,.25) }
+.seg:nth-child(3):hover::after, .seg:nth-child(4):hover::after { left:auto; right:0 }
 .pts { font-weight:700; font-size:16px; text-align:right }
 
 /* 장부 */
@@ -238,140 +244,140 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 <div class="row">
   <div class="rank">1</div>
   <div class="name">닥터블랑_예뻐지는비결<span class="sub">구독 188,000 · 반응량 16,368</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 2.1%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 188,000"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 2.1%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 188,000"></div><div class="seg" style="width:20%;background:#b45309" data-tip="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">70</div>
   <div class="why">반응률 2.1% · 구독자 188,000 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">2</div>
   <div class="name">Jaina<span class="sub">구독 282,000 · 반응량 23,849</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 1.7%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 282,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 1.7%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 282,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">62</div>
   <div class="why">반응률 1.7% · 구독자 282,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">3</div>
   <div class="name">소살 Sora Salon<span class="sub">구독 135,000 · 반응량 6,401</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 2.0%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 135,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 2.0%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 135,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">62</div>
   <div class="why">반응률 2.0% · 구독자 135,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">4</div>
   <div class="name">일타의사 박영진<span class="sub">구독 226,000 · 반응량 6,872</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 2.2%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 226,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 2.2%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 226,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">62</div>
   <div class="why">반응률 2.2% · 구독자 226,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">5</div>
   <div class="name">림온 RIMON<span class="sub">구독 159,000 · 반응량 1,487</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.8%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 159,000"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 0.8%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 159,000"></div><div class="seg" style="width:20%;background:#b45309" data-tip="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">60</div>
   <div class="why">반응률 0.8% · 구독자 159,000 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">6</div>
   <div class="name">최종시안<span class="sub">구독 360,000 · 반응량 8,449</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 1.9%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 360,000"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 1.9%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 360,000"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">58</div>
   <div class="why">반응률 1.9% · 구독자 360,000 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">7</div>
   <div class="name">임보라<span class="sub">구독 234,000 · 반응량 2,869</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 1.9%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 234,000"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 1.9%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 234,000"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">58</div>
   <div class="why">반응률 1.9% · 구독자 234,000 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">8</div>
   <div class="name">유리하다<span class="sub">구독 187,000 · 반응량 2,278</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 1.6%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 187,000"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 1.6%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 187,000"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">58</div>
   <div class="why">반응률 1.6% · 구독자 187,000 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">9</div>
   <div class="name">프롬베이지<span class="sub">구독 60,600 · 반응량 928</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.7%"></div><div class="seg" style="width:25%;background:#0d9668" title="R2 25점 — 구독자 60,600"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 0.7%"></div><div class="seg" style="width:25%;background:#0d9668" data-tip="R2 25점 — 구독자 60,600"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">58</div>
   <div class="why">반응률 0.7% · 구독자 60,600 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">10</div>
   <div class="name">안다 ANDA<span class="sub">구독 1,550,000 · 반응량 6,887</span></div>
-  <div class="bar"><div class="seg" style="width:30%;background:#1E41C0" title="R1 30점 — 반응률 3.1%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 1,550,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:5%;background:#94a3b8" title="R4 5점 — 카테고리 키워드 없음"></div></div>
+  <div class="bar"><div class="seg" style="width:30%;background:#1E41C0" data-tip="R1 30점 — 반응률 3.1%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 1,550,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:5%;background:#94a3b8" data-tip="R4 5점 — 카테고리 키워드 없음"></div></div>
   <div class="pts">57</div>
   <div class="why">반응률 3.1% · 구독자 1,550,000 · 마커 없음(중립) · 카테고리 키워드 없음</div>
 </div>
 <div class="row">
   <div class="rank">11</div>
   <div class="name">회사원A<span class="sub">구독 1,310,000 · 반응량 3,985</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.0%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 1,310,000"></div><div class="seg" style="width:20%;background:#b45309" title="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.0%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 1,310,000"></div><div class="seg" style="width:20%;background:#b45309" data-tip="R3 20점 — 내돈내산/솔직 마커"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">55</div>
   <div class="why">반응률 1.0% · 구독자 1,310,000 · 내돈내산/솔직 마커 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">12</div>
   <div class="name">한별두별[Hanna]<span class="sub">구독 131,000 · 반응량 748</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 0.9%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 131,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 0.9%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 131,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">52</div>
   <div class="why">반응률 0.9% · 구독자 131,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">13</div>
   <div class="name">한혜진 Han Hye Jin<span class="sub">구독 922,000 · 반응량 14,928</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.3%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 922,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.3%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 922,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">47</div>
   <div class="why">반응률 1.3% · 구독자 922,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">14</div>
   <div class="name">디렉터 파이<span class="sub">구독 1,040,000 · 반응량 6,306</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.0%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 1,040,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.0%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 1,040,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">47</div>
   <div class="why">반응률 1.0% · 구독자 1,040,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">15</div>
   <div class="name">지켜츄 Chuu Can Do It<span class="sub">구독 1,410,000 · 반응량 11,839</span></div>
-  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" title="R1 20점 — 반응률 2.0%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 1,410,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:5%;background:#94a3b8" title="R4 5점 — 카테고리 키워드 없음"></div></div>
+  <div class="bar"><div class="seg" style="width:20%;background:#1E41C0" data-tip="R1 20점 — 반응률 2.0%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 1,410,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:5%;background:#94a3b8" data-tip="R4 5점 — 카테고리 키워드 없음"></div></div>
   <div class="pts">47</div>
   <div class="why">반응률 2.0% · 구독자 1,410,000 · 마커 없음(중립) · 카테고리 키워드 없음</div>
 </div>
 <div class="row">
   <div class="rank">16</div>
   <div class="name">스완SWAN_현실남자관리<span class="sub">구독 504,000 · 반응량 4,464</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.2%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 504,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.2%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 504,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">47</div>
   <div class="why">반응률 1.2% · 구독자 504,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">17</div>
   <div class="name">뷰드름 유튜버 인씨<span class="sub">구독 569,000 · 반응량 1,985</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.0%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 569,000"></div><div class="seg" style="width:12%;background:#b45309" title="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.0%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 569,000"></div><div class="seg" style="width:12%;background:#b45309" data-tip="R3 12점 — 마커 없음(중립)"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">47</div>
   <div class="why">반응률 1.0% · 구독자 569,000 · 마커 없음(중립) · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">18</div>
   <div class="name">일단이나연 NAYEON<span class="sub">구독 513,000 · 반응량 27,751</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.2%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 513,000"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.2%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 513,000"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">43</div>
   <div class="why">반응률 1.2% · 구독자 513,000 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">19</div>
   <div class="name">헤이유정 YUJUNG<span class="sub">구독 151,000 · 반응량 587</span></div>
-  <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" title="R1 0점 — 반응률 0.1%"></div><div class="seg" style="width:15%;background:#0d9668" title="R2 15점 — 구독자 151,000"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" title="R4 15점 — 뷰티 키워드 일치"></div></div>
+  <div class="bar"><div class="seg" style="width:0%;background:#1E41C0" data-tip="R1 0점 — 반응률 0.1%"></div><div class="seg" style="width:15%;background:#0d9668" data-tip="R2 15점 — 구독자 151,000"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:15%;background:#94a3b8" data-tip="R4 15점 — 뷰티 키워드 일치"></div></div>
   <div class="pts">38</div>
   <div class="why">반응률 0.1% · 구독자 151,000 · 협찬/광고 표기 · 뷰티 키워드 일치</div>
 </div>
 <div class="row">
   <div class="rank">20</div>
   <div class="name">Risabae<span class="sub">구독 2,680,000 · 반응량 23,147</span></div>
-  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" title="R1 10점 — 반응률 1.2%"></div><div class="seg" style="width:10%;background:#0d9668" title="R2 10점 — 구독자 2,680,000"></div><div class="seg" style="width:8%;background:#b45309" title="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:5%;background:#94a3b8" title="R4 5점 — 카테고리 키워드 없음"></div></div>
+  <div class="bar"><div class="seg" style="width:10%;background:#1E41C0" data-tip="R1 10점 — 반응률 1.2%"></div><div class="seg" style="width:10%;background:#0d9668" data-tip="R2 10점 — 구독자 2,680,000"></div><div class="seg" style="width:8%;background:#b45309" data-tip="R3 8점 — 협찬/광고 표기"></div><div class="seg" style="width:5%;background:#94a3b8" data-tip="R4 5점 — 카테고리 키워드 없음"></div></div>
   <div class="pts">33</div>
   <div class="why">반응률 1.2% · 구독자 2,680,000 · 협찬/광고 표기 · 카테고리 키워드 없음</div>
 </div>

@@ -30,7 +30,7 @@ def score_rows(scores):
     for i, r in enumerate(scores, 1):
         segs = "".join(
             f'<div class="seg" style="width:{int(r[f"R{k}_{f}"]) / 100 * 100:.0f}%;background:{R_COLORS[f"R{k}"]}" '
-            f'title="R{k} {int(r[f"R{k}_{f}"])}점 — {e(r[f"R{k}_why"])}"></div>'
+            f'data-tip="R{k} {int(r[f"R{k}_{f}"])}점 — {e(r[f"R{k}_why"])}"></div>'
             for k, f in [(1, "engagement"), (2, "scale"), (3, "authenticity"), (4, "relevance")])
         est = ' <span class="tag est">추정</span>' if r["estimated"] else ""
         subs = f'{int(r["subscribers"]):,}' if r["subscribers"] else "?"
@@ -257,8 +257,14 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
 .rank {{ color:var(--faint); font-size:13px; text-align:right }}
 .name {{ font-size:14px; font-weight:600 }} .sub {{ color:var(--faint); font-size:11.5px; margin-left:8px; font-weight:400 }}
 .tag.est {{ background:#fdf6ec; color:var(--amber); font-size:10.5px; border:1px solid #ecd9b8; border-radius:4px; padding:1px 6px; margin-left:6px }}
-.bar {{ display:flex; height:14px; background:#efefec; border-radius:4px; overflow:hidden }}
-.seg {{ height:100% }}
+.bar {{ display:flex; height:14px; background:#efefec; border-radius:4px }}
+.seg {{ height:100%; position:relative }}
+.seg:first-child {{ border-radius:4px 0 0 4px }} .seg:last-child {{ border-radius:0 4px 4px 0 }}
+.seg:hover {{ filter:brightness(1.15); outline:1px solid #111 }}
+.seg:hover::after {{ content:attr(data-tip); position:absolute; bottom:22px; left:0;
+  background:#111; color:#fff; font-size:12px; font-weight:400; padding:6px 12px;
+  border-radius:6px; white-space:nowrap; z-index:9; box-shadow:0 4px 12px rgba(0,0,0,.25) }}
+.seg:nth-child(3):hover::after, .seg:nth-child(4):hover::after {{ left:auto; right:0 }}
 .pts {{ font-weight:700; font-size:16px; text-align:right }}
 
 /* 장부 */
