@@ -8,10 +8,14 @@
 재수집은 `python tools/collect_youtube.py "<브랜드>"` + `enrich_youtube.py`.
 """
 import io
+import os
 import subprocess
 import sys
 
 PY = sys.executable
+# 어느 폴더에서 실행해도 동작: 이 파일 위치 기준으로 프로젝트 루트로 이동
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(ROOT)
 
 
 def say(title):
@@ -22,11 +26,12 @@ def say(title):
 
 
 def run(args):
-    r = subprocess.run([PY] + args, capture_output=True, text=True, encoding="utf-8")
-    print(r.stdout, end="")
+    # stderr를 stdout에 합쳐 캡처: 어떤 환경에서든 에러 원문이 그대로 화면에 보인다
+    r = subprocess.run([PY] + args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                       text=True, encoding="utf-8", errors="replace", cwd=ROOT)
+    print(r.stdout or "", end="")
     if r.returncode != 0:
-        print(r.stderr[-500:], file=sys.stderr)
-        sys.exit(f"데모 중단: {' '.join(args)} 실패")
+        sys.exit(f"데모 중단: {' '.join(args)} 실패 (원인은 위 출력 참조)")
 
 
 def main():
