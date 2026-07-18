@@ -100,7 +100,7 @@ ONTOLOGY_SVG = """<svg viewBox="0 0 1060 450" width="100%" style="max-width:1060
 <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1E41C0"/></marker></defs>
 
 <!-- 전파 → 자극 회귀 레인 (상단 전용 통로: 박스 위를 지나지 않음) -->
-<path d="M 980 190 L 980 28 Q 980 18 970 18 L 535 18 Q 525 18 525 28 L 525 36" fill="none" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+<path d="M 960 190 L 960 28 Q 960 18 950 18 L 535 18 Q 525 18 525 28 L 525 36" fill="none" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#ar)"/>
 <text x="752" y="13" fill="#8a8f99" font-size="10.5" text-anchor="middle">전파는 후기·입소문이 되어 자극②로 되돌아온다 (세계의 자체 루프)</text>
 
 <!-- 자극층 -->
@@ -118,35 +118,39 @@ ONTOLOGY_SVG = """<svg viewBox="0 0 1060 450" width="100%" style="max-width:1060
 <text x="855" y="94" fill="#666" font-size="10.5" text-anchor="middle">관측 가능한 표식</text>
 
 <!-- 자극 → 상태전이 (구조 화살표: 회색) -->
-<line x1="165" y1="106" x2="179" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
-<line x1="525" y1="106" x2="539" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
-<line x1="855" y1="106" x2="723" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<line x1="165" y1="106" x2="152" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<line x1="525" y1="106" x2="432" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<line x1="855" y1="106" x2="575" y2="184" stroke="#9aa1ad" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ar)"/>
 
-<!-- 소비자 상태 사슬 -->
+<!-- 소비자 상태 사슬 (7단계 — 반복 구매 포함) -->
 <text x="20" y="180" fill="#111" font-size="12" font-weight="bold">소비자</text>
-<rect x="20" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="90" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">모름</text>
-<rect x="200" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="270" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
-<rect x="380" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="450" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">관심</text>
-<rect x="560" y="190" width="140" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="630" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">신뢰</text>
-<rect x="740" y="190" width="140" height="52" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="2"/>
-<text x="810" y="221" fill="#065f46" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
-<rect x="920" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
-<text x="980" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">전파</text>
-<line x1="160" y1="216" x2="198" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="340" y1="216" x2="378" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="520" y1="216" x2="558" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="700" y1="216" x2="738" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
-<line x1="880" y1="216" x2="918" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<rect x="20" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="80" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">모름</text>
+<rect x="160" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="220" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">인지</text>
+<rect x="300" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="360" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">관심</text>
+<rect x="440" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="500" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">신뢰</text>
+<rect x="580" y="190" width="120" height="52" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="2"/>
+<text x="640" y="221" fill="#065f46" font-size="13" font-weight="bold" text-anchor="middle">구매</text>
+<rect x="720" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#0d9668" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="780" y="214" fill="#065f46" font-size="13" font-weight="bold" text-anchor="middle">재구매</text>
+<text x="780" y="230" fill="#666" font-size="9.5" text-anchor="middle">코호트 30/60일</text>
+<rect x="860" y="190" width="120" height="52" rx="10" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+<text x="920" y="221" fill="#111" font-size="13" font-weight="bold" text-anchor="middle">전파</text>
+<line x1="140" y1="216" x2="158" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="280" y1="216" x2="298" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="420" y1="216" x2="438" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="560" y1="216" x2="578" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="700" y1="216" x2="718" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="840" y1="216" x2="858" y2="216" stroke="#9aa1ad" stroke-width="1.5" marker-end="url(#ar)"/>
 
 <!-- 전이별 관측 가능성 (강조는 색이 아니라 기호로) -->
-<text x="90" y="262" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 조회·좋아요 간접 추정</text>
-<text x="450" y="262" fill="#b91c1c" font-size="10.5" text-anchor="middle">✗ 친구의 말·오프라인 — 관측 불가</text>
-<text x="660" y="262" fill="#0d9668" font-size="10.5" text-anchor="middle">● 코드 구매 = 확실 · ◐ 시간창 = 추정</text>
-<text x="980" y="262" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 후기 수·해시태그</text>
+<text x="80" y="262" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 조회·좋아요 간접</text>
+<text x="360" y="262" fill="#b91c1c" font-size="10.5" text-anchor="middle">✗ 구전·오프라인 관측 불가</text>
+<text x="612" y="262" fill="#0d9668" font-size="10.5" text-anchor="middle">● 리딤=확실 ◐ 시간창=추정</text>
+<text x="920" y="262" fill="#8a8f99" font-size="10.5" text-anchor="middle">◐ 후기 수·해시태그</text>
 
 <!-- 우리 시스템 -->
 <rect x="40" y="310" width="280" height="70" rx="10" fill="#eef1ff" stroke="#1E41C0" stroke-width="1.5"/>
@@ -155,7 +159,7 @@ ONTOLOGY_SVG = """<svg viewBox="0 0 1060 450" width="100%" style="max-width:1060
 <text x="180" y="366" fill="#666" font-size="10.5" text-anchor="middle">세계에 주입할지 근거로 결정</text>
 <rect x="700" y="310" width="300" height="70" rx="10" fill="#e9f7f0" stroke="#0d9668" stroke-width="1.5"/>
 <text x="850" y="333" fill="#111" font-size="12.5" font-weight="bold" text-anchor="middle">인과 장부 = 상태 변화 기록계</text>
-<text x="850" y="351" fill="#666" font-size="10.5" text-anchor="middle">확실(코드)과 추정(시간창)을 분리 기록</text>
+<text x="850" y="351" fill="#666" font-size="10.5" text-anchor="middle">확실(코드)·추정(시간창) 분리 + 재구매 코호트 기록</text>
 <text x="850" y="366" fill="#666" font-size="10.5" text-anchor="middle">append-only — 담당자가 바뀌어도 히스토리 보존</text>
 
 <!-- 주입 경로 (좌측 전용 통로: 박스를 넘지 않음) -->
@@ -164,7 +168,7 @@ ONTOLOGY_SVG = """<svg viewBox="0 0 1060 450" width="100%" style="max-width:1060
 <text x="24" y="140" fill="#1E41C0" font-size="10.5">주입</text>
 
 <!-- 구매 → 장부 -->
-<line x1="845" y1="244" x2="845" y2="308" stroke="#0d9668" stroke-width="1.5" marker-end="url(#arg)"/>
+<line x1="800" y1="246" x2="800" y2="308" stroke="#0d9668" stroke-width="1.5" marker-end="url(#arg)"/>
 
 <!-- 시스템 루프 -->
 <path d="M 698 345 L 324 345" fill="none" stroke="#0d9668" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arg)"/>
@@ -322,7 +326,7 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
   <div class="layer roadmap"><span class="ltag">다음 버전</span><b>전파 네트워크</b> — 전파 상태가 데이터로 관측되기 시작하면 여는 층 (팔로워·구전 그래프 확산 모델)</div>
   <div class="layer output"><span class="ltag">루프의 산출물</span><b>수요 레시피</b> — 루프가 학습하는 패턴의 축적: 콘텐츠 유형 × 채널 × 타이밍 → 수요</div>
   <div class="layer view"><span class="ltag">경영 뷰</span><b>퍼널 보고</b> — 같은 세계를 경영 관점으로 투사한 화면 (아래 ①~④ 섹션이 이 뷰)</div>
-  <div class="layer core"><span class="ltag">물리 법칙 ← 오늘 구현</span><b>소비자 상태 세계</b> — 모름→인지→관심→신뢰→구매→전파의 상태 전이 모델. 시뮬레이터와 동일물: 전이 확률이 곧 파라미터, 실측이 곧 보정</div>
+  <div class="layer core"><span class="ltag">물리 법칙 ← 오늘 구현</span><b>소비자 상태 세계</b> — 모름→인지→관심→신뢰→구매→재구매→전파의 상태 전이 모델. 시뮬레이터와 동일물: 전이 확률이 곧 파라미터, 실측이 곧 보정</div>
 </div>
 
 <h2>Decision<span class="big">① 판단 — 누구에게 보낼 것인가 <span style="color:var(--faint);font-weight:400;font-size:14px">(카테고리 검색 기반 후보 풀 {n_channels}개 채널, 실제 유튜브 공개 데이터)</span></span></h2>
