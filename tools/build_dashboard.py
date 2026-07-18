@@ -61,15 +61,19 @@ def ledger_rows(ledger):
     return "\n".join(out)
 
 
-def loop_rows(updated):
+def loop_rows(updated, redeem_map=None):
     out = []
+    redeem_map = redeem_map or {}
     cls = {"재계약+닮은꼴 발굴": "up", "유지": "keep", "제외": "drop"}
     for u in updated:
         old, new = int(u["old_score"]), int(u["new_score"])
         arrow = "▲" if new > old else ("▼" if new < old else "―")
         role = f' <span class="tag est">{e(u["role"])}</span>' if u.get("role") == "탐색" else ""
+        redeem = redeem_map.get(u["channel"], "")
+        redeem_html = f'<div class="redeem">리딤 {redeem}건</div>' if redeem != "" else '<div class="redeem"></div>'
         out.append(f'''<div class="urow {cls.get(u["action"], "keep")}">
   <div class="name">{e(u["channel"])}{role}</div>
+  {redeem_html}
   <div class="delta">{old} → <b>{new}</b> <span class="arr">{arrow}</span></div>
   <div class="act">{e(u["action"])}</div>
 </div>''')
@@ -267,8 +271,9 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
 .lest {{ font-size:12.5px; color:var(--amber) }} .note {{ color:var(--faint); font-size:10.5px }}
 
 /* 루프 */
-.urow {{ display:grid; grid-template-columns:230px 170px 1fr; gap:12px; padding:12px 18px;
+.urow {{ display:grid; grid-template-columns:230px 110px 170px 1fr; gap:12px; padding:12px 18px;
   border-radius:10px; margin-bottom:6px; align-items:center; background:var(--card); border:1px solid var(--line) }}
+.redeem {{ font-size:13px; color:var(--green); font-weight:600 }}
 .urow.up {{ background:var(--green-light); border-color:#bfe6d4 }}
 .urow.drop {{ background:var(--red-light); border-color:#f0caca; color:var(--muted) }}
 .delta {{ font-size:14px }} .delta b {{ font-size:17px }}
@@ -342,13 +347,37 @@ h2 .big {{ display:block; font-size:19px; font-weight:700; letter-spacing:-0.01e
 {ledger}
 </div>
 
-<h2>Loop<span class="big">③ 루프 — 실측이 점수를 갱신한다</span></h2>
-<div class="hint">사전 1위(글램미 72)가 실측 후 강등 — 시스템이 자기 예측의 오류를 스스로 교정</div>
+<h2>Loop<span class="big">③ 루프 — 예측 vs 실측, 실측이 점수를 갱신한다</span></h2>
+<div class="hint">사전 동점(62점 3명)이 실측 리딤에선 16~47건으로 3배 차이 — 공개 지표의 해상도 한계를 실측이 보완하고, 사전 1위 강등을 시스템이 스스로 교정한다 <span style="color:var(--amber)">[리딤 수치는 SYNTHETIC]</span></div>
 {loop}
 
 <h2>Expansion<span class="big">④ 확장 — 에이스의 닮은꼴 발굴 (다음 배치 후보)</span></h2>
 <div class="hint">실측 검증된 채널과 규칙 프로필(R1~R4)이 가장 가까운 미시딩 채널 — 임베딩·추측 없이 규칙 점수로만</div>
 {lookalikes}
+
+<h2>Measurement Boundary<span class="big">⑤ 측정의 경계 — 무엇이 보이고, 무엇이 안 보이나</span></h2>
+<div class="whygrid" style="grid-template-columns:1fr 1fr 1fr">
+  <div class="whycard good">
+    <div class="whyhead">● 100% 정확히 보임</div>
+    <div class="whyitem">자사몰 <b>코드 리딤 매출</b> — 자기 계산대 데이터라 오차 없음. 단, 코드 미사용 구매를 못 잡아 <b>하한(최소치)</b>이다</div>
+  </div>
+  <div class="whycard" style="border:1px solid #ecd9b8; background:#fdf6ec">
+    <div class="whyhead" style="color:var(--amber)">◐ 근사로 보임</div>
+    <div class="whyitem">게시 후 48h <b>매출 상승분</b> — 다른 마케팅과 겹치면 왜곡 가능, 참고 지표로만 사용</div>
+  </div>
+  <div class="whycard bad">
+    <div class="whyhead">✗ 안 보임</div>
+    <div class="whyitem">코드 없이 산 구매 · 올리브영 <b>오프라인 구매</b> · 장기 브랜드 효과 — 채워넣지 않고 불가로 명시</div>
+  </div>
+</div>
+<div class="hint" style="line-height:1.9">
+<b>그래도 판단이 성립하는 이유</b> — 모든 채널을 같은 자(코드 리딤)로 재므로 과소평가 편향이 전 채널에 동일하게 걸린다.
+절대값은 하한이지만 <b>채널 간 비교와 재계약 판단에는 공정</b>하며, 그것이 이 시스템의 목적이다. ·
+<b>왜 코드인가</b> — 개인 추적은 규제로 불가, MMM은 수년치 데이터 필요, 홀드아웃 실험은 더 엄밀하나 규모·기간이 필요(2단계 로드맵) —
+코드는 <b>지금 당장 비용 0으로 하한을 확실하게 증명하는 유일한 방법</b>이다. ·
+<b>매출이 [SYNTHETIC]인 이유</b> — 판매 데이터 미제공. 정답 전환력을 심은 합성으로 추정 로직의 복원을 검증했고(골든셋 방식),
+자사몰 리딤 CSV 한 칸을 연결하면 그대로 실전 가동된다.
+</div>
 
 <div class="foot">
 정직한 한계 — ① 인스타그램 자동 수집 불가(로그인 장벽): 수동 샘플링으로 대체 ·
@@ -366,11 +395,13 @@ def main():
     from score_influencers import sensitivity
     _, common = sensitivity(scores)
     sens = f"{len(common)}개 채널({', '.join(sorted(c[:6] for c in common))})"
+    redeem_map = {l["channel"]: l["certain_orders"] for l in ledger}
     doc = PAGE.format(
         n_channels=len(scores), sens_common=sens,
         c1=R_COLORS["R1"], c2=R_COLORS["R2"], c3=R_COLORS["R3"], c4=R_COLORS["R4"],
         ontology=ONTOLOGY_SVG, lookalikes=lookalike_rows(),
-        scores=score_rows(scores), ledger=ledger_rows(ledger), loop=loop_rows(updated))
+        scores=score_rows(scores), ledger=ledger_rows(ledger),
+        loop=loop_rows(updated, redeem_map))
     with open(OUT, "w", encoding="utf-8") as fh:
         fh.write(doc)
     out = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")

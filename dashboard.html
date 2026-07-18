@@ -87,8 +87,9 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 .lest { font-size:12.5px; color:var(--amber) } .note { color:var(--faint); font-size:10.5px }
 
 /* 루프 */
-.urow { display:grid; grid-template-columns:230px 170px 1fr; gap:12px; padding:12px 18px;
+.urow { display:grid; grid-template-columns:230px 110px 170px 1fr; gap:12px; padding:12px 18px;
   border-radius:10px; margin-bottom:6px; align-items:center; background:var(--card); border:1px solid var(--line) }
+.redeem { font-size:13px; color:var(--green); font-weight:600 }
 .urow.up { background:var(--green-light); border-color:#bfe6d4 }
 .urow.drop { background:var(--red-light); border-color:#f0caca; color:var(--muted) }
 .delta { font-size:14px } .delta b { font-size:17px }
@@ -411,30 +412,35 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
 </div>
 </div>
 
-<h2>Loop<span class="big">③ 루프 — 실측이 점수를 갱신한다</span></h2>
-<div class="hint">사전 1위(글램미 72)가 실측 후 강등 — 시스템이 자기 예측의 오류를 스스로 교정</div>
+<h2>Loop<span class="big">③ 루프 — 예측 vs 실측, 실측이 점수를 갱신한다</span></h2>
+<div class="hint">사전 동점(62점 3명)이 실측 리딤에선 16~47건으로 3배 차이 — 공개 지표의 해상도 한계를 실측이 보완하고, 사전 1위 강등을 시스템이 스스로 교정한다 <span style="color:var(--amber)">[리딤 수치는 SYNTHETIC]</span></div>
 <div class="urow up">
   <div class="name">일타의사 박영진</div>
+  <div class="redeem">리딤 47건</div>
   <div class="delta">62 → <b>81</b> <span class="arr">▲</span></div>
   <div class="act">재계약+닮은꼴 발굴</div>
 </div>
 <div class="urow up">
   <div class="name">Jaina</div>
+  <div class="redeem">리딤 43건</div>
   <div class="delta">62 → <b>77</b> <span class="arr">▲</span></div>
   <div class="act">재계약+닮은꼴 발굴</div>
 </div>
 <div class="urow keep">
   <div class="name">닥터블랑_예뻐지는비결</div>
+  <div class="redeem">리딤 18건</div>
   <div class="delta">70 → <b>54</b> <span class="arr">▼</span></div>
   <div class="act">유지</div>
 </div>
 <div class="urow keep">
   <div class="name">소살 Sora Salon</div>
+  <div class="redeem">리딤 16건</div>
   <div class="delta">62 → <b>48</b> <span class="arr">▼</span></div>
   <div class="act">유지</div>
 </div>
 <div class="urow drop">
   <div class="name">림온 RIMON <span class="tag est">탐색</span></div>
+  <div class="redeem">리딤 12건</div>
   <div class="delta">60 → <b>43</b> <span class="arr">▼</span></div>
   <div class="act">제외</div>
 </div>
@@ -468,6 +474,30 @@ h2 .big { display:block; font-size:19px; font-weight:700; letter-spacing:-0.01em
   <div class="name">임보라<span class="sub">구독 234,000 · 미시딩</span></div>
   <div class="ksim">유사도 90%</div>
   <div class="why" style="grid-column:1/5">프로필 R1~R4 (20/15/8/15) ≈ 에이스 (20/15/12/15)</div>
+</div>
+
+<h2>Measurement Boundary<span class="big">⑤ 측정의 경계 — 무엇이 보이고, 무엇이 안 보이나</span></h2>
+<div class="whygrid" style="grid-template-columns:1fr 1fr 1fr">
+  <div class="whycard good">
+    <div class="whyhead">● 100% 정확히 보임</div>
+    <div class="whyitem">자사몰 <b>코드 리딤 매출</b> — 자기 계산대 데이터라 오차 없음. 단, 코드 미사용 구매를 못 잡아 <b>하한(최소치)</b>이다</div>
+  </div>
+  <div class="whycard" style="border:1px solid #ecd9b8; background:#fdf6ec">
+    <div class="whyhead" style="color:var(--amber)">◐ 근사로 보임</div>
+    <div class="whyitem">게시 후 48h <b>매출 상승분</b> — 다른 마케팅과 겹치면 왜곡 가능, 참고 지표로만 사용</div>
+  </div>
+  <div class="whycard bad">
+    <div class="whyhead">✗ 안 보임</div>
+    <div class="whyitem">코드 없이 산 구매 · 올리브영 <b>오프라인 구매</b> · 장기 브랜드 효과 — 채워넣지 않고 불가로 명시</div>
+  </div>
+</div>
+<div class="hint" style="line-height:1.9">
+<b>그래도 판단이 성립하는 이유</b> — 모든 채널을 같은 자(코드 리딤)로 재므로 과소평가 편향이 전 채널에 동일하게 걸린다.
+절대값은 하한이지만 <b>채널 간 비교와 재계약 판단에는 공정</b>하며, 그것이 이 시스템의 목적이다. ·
+<b>왜 코드인가</b> — 개인 추적은 규제로 불가, MMM은 수년치 데이터 필요, 홀드아웃 실험은 더 엄밀하나 규모·기간이 필요(2단계 로드맵) —
+코드는 <b>지금 당장 비용 0으로 하한을 확실하게 증명하는 유일한 방법</b>이다. ·
+<b>매출이 [SYNTHETIC]인 이유</b> — 판매 데이터 미제공. 정답 전환력을 심은 합성으로 추정 로직의 복원을 검증했고(골든셋 방식),
+자사몰 리딤 CSV 한 칸을 연결하면 그대로 실전 가동된다.
 </div>
 
 <div class="foot">
